@@ -1044,7 +1044,7 @@
 
     <div class="card">
       <div class="card-head">
-        <h3 data-i18n="debtAddTitle">Anotar deuda</h3>
+        <h3 data-i18n="debtAddTitle">Pagar deuda</h3>
       </div>
       <div class="debt-form">
         <label class="field">
@@ -1055,23 +1055,19 @@
           <span data-i18n="debtAmount">Monto</span>
           <span class="money-field">
             <span>₽</span>
-            <input id="debtAmount" type="number" min="0" step="500" inputmode="numeric" placeholder="0">
+            <input id="debtAmount" type="number" min="0" step="500" inputmode="numeric" placeholder="0" readonly>
           </span>
         </label>
-        <label class="field">
+        <label class="field full">
           <span data-i18n="debtPayment">Pago</span>
           <span class="money-field">
             <span>₽</span>
             <input id="debtPayment" type="number" min="0" step="500" inputmode="numeric" placeholder="0">
           </span>
         </label>
-        <label class="field full">
-          <span data-i18n="debtNote">Nota (opcional)</span>
-          <input id="debtNote" type="text" maxlength="80" data-i18n-ph="debtNotePlaceholder" placeholder="Ej.: mes con pocos días">
-        </label>
-        <button class="btn primary" id="debtAdd" type="button" data-i18n="debtAddButton">Agregar deuda</button>
+        <button class="btn primary" id="debtAdd" type="button" data-i18n="debtAddButton">Pagar</button>
       </div>
-      <p class="hint" data-i18n="debtFormHint">El monto se completa con el salario oficial y el pago con lo calculado por tus días; podés cambiar ambos.</p>
+      <p class="hint" data-i18n="debtFormHint">El monto es el salario oficial. La deuda del mes se descuenta sola de lo que ganaste; el pago de la barra se resta de esa deuda.</p>
     </div>
 
     <div class="card">
@@ -1365,9 +1361,10 @@ const I18N = {
       debtNoDays: "No shifts entered this month.",
       debtNoDebt: "This month generates no debt.",
       debtSurplus: "You earned {amount} above the official salary.",
-      debtAddTitle: "Record debt",
+      debtAddTitle: "Pay debt",
       debtAmount: "Amount",
       debtPayment: "Payment",
+      debtDiscounted: "Deducted",
       debtRemaining: "Pending",
       debtPartialPill: "Partial",
       debtPayAction: "Add payment",
@@ -1376,15 +1373,12 @@ const I18N = {
       debtPayButton: "Record payment",
       debtPayInvalid: "Enter an amount between 1 and {remaining}.",
       debtPaymentAdded: "Payment recorded.",
-      debtNote: "Note (optional)",
-      debtNotePlaceholder: "E.g.: month with few days",
-      debtAddButton: "Add debt",
-      debtFormHint: "The amount is filled with the official salary and the payment with your calculated days; you can change both.",
+      debtAddButton: "Pay",
+      debtFormHint: "The amount is the official salary. The month's debt is calculated automatically from what you earned; the payment bar reduces that debt.",
       debtListTitle: "Recorded debts",
       debtEmpty: "No debts recorded yet.",
       debtPaidPill: "Paid",
       debtPendingPill: "Pending",
-      debtAdded: "Debt recorded.",
       debtDeleted: "Debt deleted.",
       debtDeleteTitle: "Delete debt",
       debtDeleteBody: "The debt for <b>{month}</b> of <b>{amount}</b> will be deleted.",
@@ -1555,9 +1549,10 @@ const I18N = {
       debtNoDays: "No hay jornadas cargadas este mes.",
       debtNoDebt: "Este mes no genera deuda.",
       debtSurplus: "Superaste el fijo por {amount}.",
-      debtAddTitle: "Anotar deuda",
+      debtAddTitle: "Pagar deuda",
       debtAmount: "Monto",
       debtPayment: "Pago",
+      debtDiscounted: "Descontado",
       debtRemaining: "Pendiente",
       debtPartialPill: "Parcial",
       debtPayAction: "Abonar",
@@ -1566,15 +1561,12 @@ const I18N = {
       debtPayButton: "Registrar pago",
       debtPayInvalid: "Escribe un monto entre 1 y {remaining}.",
       debtPaymentAdded: "Pago registrado.",
-      debtNote: "Nota (opcional)",
-      debtNotePlaceholder: "Ej.: mes con pocos días",
-      debtAddButton: "Agregar deuda",
-      debtFormHint: "El monto se completa con el salario oficial y el pago con lo calculado por tus días; podés cambiar ambos.",
+      debtAddButton: "Pagar",
+      debtFormHint: "El monto es el salario oficial. La deuda del mes se calcula sola con lo que ganaste; el pago de la barra se resta de esa deuda.",
       debtListTitle: "Deudas anotadas",
       debtEmpty: "Todavía no hay deudas anotadas.",
       debtPaidPill: "Pagada",
       debtPendingPill: "Pendiente",
-      debtAdded: "Deuda anotada.",
       debtDeleted: "Deuda borrada.",
       debtDeleteTitle: "Borrar deuda",
       debtDeleteBody: "Se borrará la deuda de <b>{month}</b> por <b>{amount}</b>.",
@@ -1744,9 +1736,10 @@ const I18N = {
       debtNoDays: "Bu oyda smenalar kiritilmagan.",
       debtNoDebt: "Bu oy qarz yaratmaydi.",
       debtSurplus: "Belgilangandan {amount} ko‘p ishladingiz.",
-      debtAddTitle: "Qarzni yozish",
+      debtAddTitle: "Qarzni to‘lash",
       debtAmount: "Summa",
       debtPayment: "To‘lov",
+      debtDiscounted: "Ushlab qolindi",
       debtRemaining: "Qoldiq",
       debtPartialPill: "Qisman",
       debtPayAction: "To‘lov qo‘shish",
@@ -1755,15 +1748,12 @@ const I18N = {
       debtPayButton: "To‘lovni yozish",
       debtPayInvalid: "1 dan {remaining} gacha summa kiriting.",
       debtPaymentAdded: "To‘lov yozildi.",
-      debtNote: "Izoh (ixtiyoriy)",
-      debtNotePlaceholder: "Masalan: kam kun ishlangan oy",
-      debtAddButton: "Qarz qo‘shish",
-      debtFormHint: "Summa rasmiy maosh bilan, to‘lov esa kunlar bo‘yicha hisobingiz bilan to‘ldiriladi; ikkalasini ham o‘zgartirish mumkin.",
+      debtAddButton: "To‘lash",
+      debtFormHint: "Summa — rasmiy maosh. Oy qarzi ishlagan pulingizdan avtomatik hisoblanadi; to‘lov maydoni shu qarzni kamaytiradi.",
       debtListTitle: "Yozilgan qarzlar",
       debtEmpty: "Hozircha qarzlar yozilmagan.",
       debtPaidPill: "To‘langan",
       debtPendingPill: "Kutilmoqda",
-      debtAdded: "Qarz yozildi.",
       debtDeleted: "Qarz o‘chirildi.",
       debtDeleteTitle: "Qarzni o‘chirish",
       debtDeleteBody: "<p><b>{month}</b> oyi uchun <b>{amount}</b> qarz o‘chiriladi.</p>",
@@ -1934,9 +1924,10 @@ const I18N = {
       debtNoDays: "В этом месяце смены не внесены.",
       debtNoDebt: "В этом месяце долга нет.",
       debtSurplus: "Вы заработали больше фиксированной суммы на {amount}.",
-      debtAddTitle: "Записать долг",
+      debtAddTitle: "Оплатить долг",
       debtAmount: "Сумма",
       debtPayment: "Оплата",
+      debtDiscounted: "Удержано",
       debtRemaining: "Осталось",
       debtPartialPill: "Частично",
       debtPayAction: "Внести платёж",
@@ -1945,15 +1936,12 @@ const I18N = {
       debtPayButton: "Записать платёж",
       debtPayInvalid: "Введите сумму от 1 до {remaining}.",
       debtPaymentAdded: "Платёж записан.",
-      debtNote: "Заметка (необязательно)",
-      debtNotePlaceholder: "Например: месяц с малым числом дней",
-      debtAddButton: "Добавить долг",
-      debtFormHint: "Сумма заполняется официальной зарплатой, а оплата — расчётом по дням; оба значения можно изменить.",
+      debtAddButton: "Оплатить",
+      debtFormHint: "Сумма — это официальная зарплата. Долг за месяц рассчитывается автоматически из заработанного; оплата из поля уменьшает этот долг.",
       debtListTitle: "Записанные долги",
       debtEmpty: "Долгов пока нет.",
       debtPaidPill: "Выплачено",
       debtPendingPill: "Ожидает",
-      debtAdded: "Долг записан.",
       debtDeleted: "Долг удалён.",
       debtDeleteTitle: "Удалить долг",
       debtDeleteBody: "Долг за <b>{month}</b> на <b>{amount}</b> будет удалён.",
@@ -2188,14 +2176,28 @@ function normalizeDebts(raw){
     const month = parseInt(d.month, 10);
     const amount = Math.round(nonNeg(d.amount));
     if (!(year >= 2019 && year <= 2100) || !(month >= 1 && month <= 12) || amount <= 0) continue;
-    const rawPaid = d.paidAmount != null ? Number(d.paidAmount) : (d.paid ? amount : 0);
-    const paidAmount = Math.max(0, Math.min(amount, Math.round(Number.isFinite(rawPaid) ? rawPaid : 0)));
+    const auto = Boolean(d.auto);
+    const autoPaid = Math.max(0, Math.min(amount, Math.round(Number(d.autoPaid) || 0)));
+    let extraPaid;
+    if (d.extraPaid != null){
+      extraPaid = Math.max(0, Math.round(Number(d.extraPaid) || 0));
+    } else if (auto){
+      const rawPaid = Number(d.paidAmount) || 0;
+      extraPaid = Math.max(0, Math.round(rawPaid - autoPaid));
+    } else {
+      const rawPaid = d.paidAmount != null ? Number(d.paidAmount) : (d.paid ? amount : 0);
+      extraPaid = Math.max(0, Math.round(Number.isFinite(rawPaid) ? rawPaid : 0));
+    }
+    const paidAmount = Math.max(0, Math.min(amount, autoPaid + extraPaid));
     out.push({
       id: String(d.id || ("debt-" + year + "-" + month + "-" + i + "-" + Date.now())),
       year,
       month,
       amount,
+      autoPaid,
+      extraPaid,
       paidAmount,
+      auto,
       note: String(d.note ?? "").slice(0, 80),
       paid: paidAmount >= amount,
       createdAt: Number.isFinite(Number(d.createdAt)) ? Number(d.createdAt) : Date.now()
@@ -2914,6 +2916,79 @@ function allDebts(){
   return Array.isArray(state.debts) ? state.debts : [];
 }
 
+function monthHasData(year, month){
+  const yd = state.years[String(year)];
+  if (!yd) return false;
+  const st = monthStats(yd, month - 1);
+  return st.worked > 0 || st.plus > 0;
+}
+
+function autoPaidFor(year, month){
+  const yd = state.years[String(year)];
+  if (!yd) return 0;
+  const st = monthStats(yd, month - 1);
+  return Math.min(st.salary, officialSalary());
+}
+
+function syncAutoDebts(){
+  const official = officialSalary();
+  if (official <= 0) return;
+  let changed = false;
+
+  for (const key of Object.keys(state.years)){
+    const year = Number(key);
+    if (!(year >= 2019 && year <= 2100)) continue;
+    for (let month = 1; month <= 12; month++){
+      const existing = allDebts().find(d => d.year === year && d.month === month);
+      const hasData = monthHasData(year, month);
+
+      if (hasData){
+        const autoPaid = autoPaidFor(year, month);
+        if (!existing){
+          state.debts.push({
+            id: "debt-auto-" + year + "-" + month,
+            year,
+            month,
+            amount: official,
+            autoPaid,
+            extraPaid: 0,
+            paidAmount: autoPaid,
+            auto: true,
+            note: "",
+            paid: autoPaid >= official,
+            createdAt: Date.now()
+          });
+          changed = true;
+        } else if (existing.auto){
+          const extraPaid = Math.max(0, Math.round(Number(existing.extraPaid) || 0));
+          const paidAmount = Math.min(official, autoPaid + extraPaid);
+          if (existing.amount !== official || existing.autoPaid !== autoPaid || existing.paidAmount !== paidAmount){
+            existing.amount = official;
+            existing.autoPaid = autoPaid;
+            existing.paidAmount = paidAmount;
+            existing.paid = paidAmount >= official;
+            changed = true;
+          }
+        }
+      } else if (existing && existing.auto){
+        const extraPaid = Math.max(0, Math.round(Number(existing.extraPaid) || 0));
+        if (extraPaid <= 0){
+          state.debts = state.debts.filter(d => d !== existing);
+          changed = true;
+        } else if (existing.amount !== official || existing.autoPaid !== 0){
+          existing.amount = official;
+          existing.autoPaid = 0;
+          existing.paidAmount = Math.min(official, extraPaid);
+          existing.paid = existing.paidAmount >= official;
+          changed = true;
+        }
+      }
+    }
+  }
+
+  if (changed) saveNow();
+}
+
 function debtTotals(){
   let pending = 0, paid = 0, total = 0, pendingCount = 0;
   const debts = allDebts();
@@ -2997,7 +3072,7 @@ function updateDebtCompare(fillAmount){
 
   if (fillAmount){
     $("#debtAmount").value = st.fixed > 0 ? st.fixed : "";
-    $("#debtPayment").value = st.payment > 0 ? st.payment : "";
+    $("#debtPayment").value = "";
   }
 }
 
@@ -3024,7 +3099,7 @@ function renderDebtList(){
         <b>${monthLabel(d.year, d.month)}</b>
         <span>${esc(d.note || "—")}</span>
       </div>
-      <div class="debt-amount">${money(amount)}<small>${esc(t("debtPaidLabel"))} ${money(paidAmount)} · ${esc(t("debtRemaining"))} ${money(remaining)}</small></div>
+      <div class="debt-amount">${money(amount)}<small>${esc(t("debtDiscounted"))} ${money(paidAmount)} · ${esc(t("debtRemaining"))} ${money(remaining)}</small></div>
       <div class="debt-actions">
         <span class="debt-state">${esc(status)}</span>
         ${remaining > 0 ? `<button type="button" class="debt-abonar" data-act="pay">${esc(t("debtPayAction"))}</button>` : ""}
@@ -3035,6 +3110,7 @@ function renderDebtList(){
 }
 
 function renderDebts(){
+  syncAutoDebts();
   const totals = debtTotals();
   $("#debtPendingTotal").textContent = money(totals.pending);
   $("#debtTotals").textContent = `${t("debtPaidLabel")} ${money(totals.paid)} · ${t("debtTotalLabel")} ${money(totals.total)}`;
@@ -3048,29 +3124,48 @@ function renderDebts(){
 }
 
 function addDebt(){
-  const amount = Math.round(nonNeg($("#debtAmount").value));
-  if (amount <= 0){
+  const month = parseInt($("#debtMonth").value, 10) || debtFormMonth;
+  const year = state.activeYear;
+  const payment = Math.round(nonNeg($("#debtPayment").value));
+  if (payment <= 0){
     toast(t("debtAmountRequired"));
-    $("#debtAmount").focus();
+    $("#debtPayment").focus();
     return;
   }
-  const month = parseInt($("#debtMonth").value, 10) || debtFormMonth;
-  const payment = Math.min(amount, Math.round(nonNeg($("#debtPayment").value)));
-  const note = $("#debtNote").value.trim().slice(0, 80);
-  state.debts = allDebts().concat([{
-    id: "debt-" + Date.now() + "-" + Math.random().toString(36).slice(2, 7),
-    year: state.activeYear,
-    month,
-    amount,
-    paidAmount: payment,
-    note,
-    paid: payment >= amount,
-    createdAt: Date.now()
-  }]);
+
+  syncAutoDebts();
+  let debt = allDebts().find(d => d.year === year && d.month === month);
+  if (!debt){
+    debt = {
+      id: "debt-auto-" + year + "-" + month,
+      year,
+      month,
+      amount: officialSalary(),
+      autoPaid: autoPaidFor(year, month),
+      extraPaid: 0,
+      paidAmount: 0,
+      auto: true,
+      note: "",
+      paid: false,
+      createdAt: Date.now()
+    };
+    state.debts.push(debt);
+  }
+
+  const remaining = remainingOf(debt);
+  if (remaining <= 0){
+    toast(t("debtNoDebt"));
+    return;
+  }
+
+  const applied = Math.min(remaining, payment);
+  debt.extraPaid = Math.max(0, Math.round(Number(debt.extraPaid) || 0)) + applied;
+  debt.paidAmount = Math.min(debt.amount, (Number(debt.autoPaid) || 0) + debt.extraPaid);
+  debt.paid = debt.paidAmount >= debt.amount;
   saveNow();
-  $("#debtNote").value = "";
+  $("#debtPayment").value = "";
   renderDebts();
-  toast(t("debtAdded"));
+  toast(t("debtPaymentAdded"));
 }
 
 async function payDebt(id){
@@ -3101,7 +3196,13 @@ async function payDebt(id){
 
   const payment = Math.min(remaining, Math.max(0, Math.round(Number(result) || 0)));
   if (payment <= 0) return;
-  debt.paidAmount = Math.min(debt.amount, (Number(debt.paidAmount) || 0) + payment);
+  if (debt.auto){
+    debt.extraPaid = Math.max(0, Math.round(Number(debt.extraPaid) || 0)) + payment;
+    debt.paidAmount = Math.min(debt.amount, (Number(debt.autoPaid) || 0) + debt.extraPaid);
+  } else {
+    debt.paidAmount = Math.min(debt.amount, (Number(debt.paidAmount) || 0) + payment);
+    debt.extraPaid = Math.max(0, Math.round(Number(debt.extraPaid) || 0)) + payment;
+  }
   debt.paid = debt.paidAmount >= debt.amount;
   saveNow();
   renderDebts();
@@ -3246,7 +3347,7 @@ function csvCell(value){
 }
 
 function buildCSV(){
-  const rows = [["anio","mes","dia","jnd","plus_mes","precio_x","precio_s","precio_m","precio_y","precio_p","base","tipo","nota","importe","pagada","pago"]];
+  const rows = [["anio","mes","dia","jnd","plus_mes","precio_x","precio_s","precio_m","precio_y","precio_p","base","tipo","nota","importe","pagada","pago","auto","extra"]];
   const years = Object.keys(state.years).map(Number).sort((a, b) => a - b);
 
   for (const yearNumber of years){
@@ -3255,11 +3356,11 @@ function buildCSV(){
     for (let month = 0; month < 12; month++){
       const stats = monthStats(yearData, month);
       const plus = month % 2 === 0 ? stats.plus : 0;
-      rows.push([yearNumber, month + 1, 0, "", plus, prices.X, prices.S, prices.M, prices.Y, prices.P, stats.base, "", "", "", "", ""]);
+      rows.push([yearNumber, month + 1, 0, "", plus, prices.X, prices.S, prices.M, prices.Y, prices.P, stats.base, "", "", "", "", "", "", ""]);
       for (let day = 1; day <= 31; day++){
         const jnd = normalizeJND(yearData.months[month].days[day - 1]);
         if (!jnd) continue;
-        rows.push([yearNumber, month + 1, day, jnd, plus, prices.X, prices.S, prices.M, prices.Y, prices.P, baseOf(jnd, prices), "", "", "", "", ""]);
+        rows.push([yearNumber, month + 1, day, jnd, plus, prices.X, prices.S, prices.M, prices.Y, prices.P, baseOf(jnd, prices), "", "", "", "", "", "", ""]);
       }
     }
   }
@@ -3268,14 +3369,15 @@ function buildCSV(){
     rows.push([
       debt.year, debt.month, 0, "", 0,
       prices.X, prices.S, prices.M, prices.Y, prices.P, 0,
-      "deuda", debt.note || "", debt.amount, debt.paid ? 1 : 0, debt.paidAmount || 0
+      "deuda", debt.note || "", debt.amount, debt.paid ? 1 : 0, debt.paidAmount || 0,
+      debt.auto ? 1 : 0, debt.extraPaid || 0
     ]);
   }
   const salaryPrices = currentYearData().prices;
   rows.push([
     state.activeYear, 1, 0, "", 0,
     salaryPrices.X, salaryPrices.S, salaryPrices.M, salaryPrices.Y, salaryPrices.P, 0,
-    "salario", "", officialSalary(), "", ""
+    "salario", "", officialSalary(), "", "", "", ""
   ]);
   return "\uFEFF" + rows.map(row => row.map(csvCell).join(";")).join("\r\n") + "\r\n";
 }
@@ -3394,6 +3496,8 @@ function parseImport(text){
   const iImporte = find("importe");
   const iPagada = find("pagada");
   const iPago = find("pago");
+  const iAuto = find("auto");
+  const iExtra = find("extra");
 
   const imported = new Map();
   const debts = (iTipo >= 0 && iImporte >= 0) ? [] : null;
@@ -3422,19 +3526,31 @@ function parseImport(text){
       const amount = Math.round(parseAmount(row[iImporte]));
       if (Number.isFinite(amount) && amount > 0){
         const paidFlag = /^(1|true|si|sí|pagada|to‘langan)$/i.test(String(row[iPagada] ?? "").trim());
+        const auto = iAuto >= 0 && /^(1|true|si|sí|auto)$/i.test(String(row[iAuto] ?? "").trim());
         let paidAmount = paidFlag ? amount : 0;
         if (iPago >= 0){
           const n = Math.round(parseAmount(row[iPago]));
           if (Number.isFinite(n) && n >= 0) paidAmount = n;
         }
         paidAmount = Math.max(0, Math.min(amount, paidAmount));
+
+        let extraPaid = paidAmount;
+        if (auto && iExtra >= 0){
+          const n = Math.round(parseAmount(row[iExtra]));
+          if (Number.isFinite(n) && n >= 0) extraPaid = Math.max(0, Math.min(amount, n));
+        }
+        const effectivePaid = auto ? extraPaid : paidAmount;
+
         debts.push({
           year,
           month,
           amount,
-          paidAmount,
+          auto,
+          autoPaid: 0,
+          extraPaid,
+          paidAmount: effectivePaid,
           note: String(row[iNota] ?? "").slice(0, 80),
-          paid: paidAmount >= amount
+          paid: effectivePaid >= amount
         });
       } else {
         invalid++;
@@ -3699,7 +3815,8 @@ function bindEvents(){
     $("#officialSalary").value = officialSalary();
     saveNow();
     flashSaved();
-    updateDebtCompare(true);
+    syncAutoDebts();
+    renderDebts();
   });
   $("#debtMonth").addEventListener("change", () => {
     debtFormMonth = parseInt($("#debtMonth").value, 10) || 1;
