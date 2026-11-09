@@ -110,6 +110,7 @@
   .app-menu{
     position:absolute;top:calc(100% + 10px);left:0;z-index:70;
     width:min(282px,calc(100vw - 32px));
+    max-height:calc(100vh - 96px);overflow-y:auto;
     padding:7px;border:1px solid var(--line);border-radius:16px;
     background:var(--card);box-shadow:0 18px 42px rgba(10,30,27,.28);
   }
@@ -128,7 +129,14 @@
   .app-menu button.on b{color:var(--brand)}
   .app-menu-divider{height:1px;background:var(--line);margin:6px 2px}
   .app-menu-action{padding:10px 9px !important}
-  .menu-check{opacity:0;color:var(--brand);font-size:12px !important}
+  .app-menu-action b{margin-left:auto;font-weight:900;color:var(--ink-2)}
+  .menu-chevron{font-style:normal;color:var(--muted);font-size:10px;line-height:1;margin-left:2px;transition:transform .15s ease}
+  #btnLanguages[aria-expanded="true"] .menu-chevron{transform:rotate(180deg)}
+  .language-submenu{padding:1px 0 4px 10px}
+  .language-submenu button{padding:7px 9px !important;font-size:11.5px !important;border-radius:8px}
+  .language-submenu button b{font-size:8.5px}
+  .app-menu-divider{margin-top:4px}
+  .menu-check{opacity:0;color:var(--brand);font-size:12px !important;margin-left:auto}
   .app-menu-action.on .menu-check{opacity:1}
   .brand-copy{min-width:0}
   .brand-copy h1{
@@ -1047,12 +1055,19 @@
       <div class="brand-wrap">
         <button type="button" class="logo" id="btnAppMenu" aria-haspopup="menu" aria-expanded="false" aria-label="Menú de la aplicación" data-i18n-aria="appMenuAria">JND</button>
         <div class="app-menu" id="appMenu" role="menu" hidden>
-          <p class="app-menu-title" data-i18n="language">Idioma</p>
-          <button type="button" role="menuitemradio" data-lang="en" aria-checked="true"><span>English</span><b>EN</b></button>
-          <button type="button" role="menuitemradio" data-lang="es" aria-checked="false"><span>Español</span><b>ES</b></button>
-          <button type="button" role="menuitemradio" data-lang="ru" aria-checked="false"><span>Русский</span><b>RU</b></button>
-          <button type="button" role="menuitemradio" data-lang="uz" aria-checked="false"><span>Oʻzbekcha</span><b>UZ</b></button>
-          <button type="button" role="menuitemradio" data-lang="ky" aria-checked="false"><span>Кыргызча</span><b>KY</b></button>
+          <button type="button" class="app-menu-action" id="btnLanguages" aria-haspopup="menu" aria-expanded="false" aria-controls="languageSubmenu">
+            <span data-i18n="language">Idioma</span>
+            <b id="currentLangName">English</b>
+            <i class="menu-chevron" aria-hidden="true">▾</i>
+          </button>
+          <div class="language-submenu" id="languageSubmenu" role="menu" hidden>
+            <button type="button" role="menuitemradio" data-lang="en" aria-checked="true"><span>English</span><b>EN</b></button>
+            <button type="button" role="menuitemradio" data-lang="es" aria-checked="false"><span>Español</span><b>ES</b></button>
+            <button type="button" role="menuitemradio" data-lang="ru" aria-checked="false"><span>Русский</span><b>RU</b></button>
+            <button type="button" role="menuitemradio" data-lang="uz" aria-checked="false"><span>Oʻzbekcha</span><b>UZ</b></button>
+            <button type="button" role="menuitemradio" data-lang="ky" aria-checked="false"><span>Кыргызча</span><b>KY</b></button>
+            <button type="button" role="menuitemradio" data-lang="ro" aria-checked="false"><span>Română</span><b>RO</b></button>
+          </div>
           <div class="app-menu-divider"></div>
           <button type="button" class="app-menu-action" id="btnTheme" role="menuitemcheckbox" aria-checked="false">
             <span data-i18n="darkMode">Modo oscuro</span><b class="menu-check" id="themeCheck">✓</b>
@@ -1507,7 +1522,8 @@ const SEED_2026 = {prices: {X: 7000, S: 5000, M: 3000, Y: 14000, P: 1500}, month
    ============================================================ */
 /* ---------- Idiomas ---------- */
 const LANG_KEY = "mi-salario-lang-uz-v1";
-const LOCALES = {en: "en-US", es: "es-AR", ru: "ru-RU", uz: "uz-UZ", ky: "ky-KG"};
+const LOCALES = {en: "en-US", es: "es-AR", ru: "ru-RU", uz: "uz-UZ", ky: "ky-KG", ro: "ro-MD"};
+const LANG_NAMES = {en: "English", es: "Español", ru: "Русский", uz: "Oʻzbekcha", ky: "Кыргызча", ro: "Română"};
 
 const I18N = {
   en: {
@@ -1521,7 +1537,7 @@ const I18N = {
       tagline: "Shift log",
       year: "Year",
       yearSelect: "Choose year",
-      language: "Change language",
+      language: "Language",
       appMenuAria: "Application menu",
       darkMode: "Dark mode",
       updateApp: "Update",
@@ -1744,7 +1760,7 @@ const I18N = {
       tagline: "Registro de jornadas",
       year: "Año",
       yearSelect: "Elegir año",
-      language: "Cambiar idioma",
+      language: "Idioma",
       appMenuAria: "Menú de la aplicación",
       darkMode: "Modo oscuro",
       updateApp: "Actualizar",
@@ -1966,7 +1982,7 @@ const I18N = {
       tagline: "Smenalar daftari",
       year: "Yil",
       yearSelect: "Yilni tanlash",
-      language: "Tilni o‘zgartirish",
+      language: "Til",
       appMenuAria: "Ilova menyusi",
       darkMode: "Qorong‘i rejim",
       updateApp: "Yangilash",
@@ -2189,7 +2205,7 @@ const I18N = {
       tagline: "Учёт смен",
       year: "Год",
       yearSelect: "Выбрать год",
-      language: "Сменить язык",
+      language: "Язык",
       appMenuAria: "Меню приложения",
       darkMode: "Тёмный режим",
       updateApp: "Обновить",
@@ -2413,7 +2429,7 @@ I18N.ky = {
             "tagline": "Жумуш күнүнүн журналы",
             "year": "Жыл",
             "yearSelect": "Жылды тандаңыз",
-            "language": "Тилди өзгөртүү",
+            "language": "Тил",
             "appMenuAria": "Колдонмонун менюсу",
             "darkMode": "Караңгы режим",
             "updateApp": "Жаңыртуу",
@@ -2622,6 +2638,229 @@ I18N.ky = {
             "debtDeleteTitle": "Карызды жок кылуу",
             "debtDeleteBody": "<b>{month}</b> айы үчүн <b>{amount}</b> өлчөмүндөгү карыз жок кылынат.",
             "debtAmountRequired": "0дөн чоң сумма киргизиңиз."
+      }
+};
+
+I18N.ro = {
+  locale: "ro-MD",
+  monthsShort: ["IAN","FEB","MAR","APR","MAI","IUN","IUL","AUG","SEP","OCT","NOI","DEC"],
+  monthsLong: ["Ianuarie","Februarie","Martie","Aprilie","Mai","Iunie","Iulie","August","Septembrie","Octombrie","Noiembrie","Decembrie"],
+  monthsGenitive: null,
+  weekdays: ["Du","Lu","Ma","Mi","Jo","Vi","Sâ"],
+  ui: {
+            "appName": "Salariul meu",
+            "tagline": "Jurnal de ture",
+            "year": "An",
+            "yearSelect": "Alege anul",
+            "language": "Limbă",
+            "appMenuAria": "Meniul aplicației",
+            "darkMode": "Mod întunecat",
+            "updateApp": "Actualizează",
+            "updating": "Se actualizează aplicația…",
+            "quickEntry": "Adăugare rapidă",
+            "tabToday": "Azi",
+            "tabMonth": "Luna",
+            "tabYear": "Anul",
+            "tabPrices": "Prețuri",
+            "extraTab": "Extra",
+            "extraEyebrow": "Venituri separate",
+            "extraTitle": "Extra",
+            "extraSeparate": "Separat",
+            "extraMonthTotal": "Total luna",
+            "extraYearTotal": "Total an",
+            "extraCollected": "Încasat",
+            "extraPending": "În așteptare",
+            "extraMonth": "Luna",
+            "extraAddTitle": "Adaugă lucrare suplimentară",
+            "extraDate": "Data",
+            "extraClient": "Client sau agent",
+            "extraClientPlaceholder": "Ex.: Agenția Nord",
+            "extraConcept": "Descriere",
+            "extraConceptPlaceholder": "Ex.: mutare, reparație",
+            "extraAmount": "Sumă",
+            "extraAddButton": "Adaugă",
+            "extraAutofill": "Folosește ultimele date",
+            "extraAutofillEmpty": "Nu există date anterioare pentru completare automată.",
+            "extraAutofilled": "Datele ultimei lucrări au fost încărcate.",
+            "extraListTitle": "Lucrări în această lună",
+            "extraEmpty": "Încă nu sunt lucrări suplimentare în această lună.",
+            "extraNote": "Acești bani sunt separați: nu se adaugă la salariu sau la datorii.",
+            "extraDateInvalid": "Data trebuie să fie în {year}.",
+            "extraConceptRequired": "Introdu o descriere sau un client.",
+            "extraAmountRequired": "Introdu o sumă mai mare decât zero.",
+            "extraAdded": "Lucrare suplimentară adăugată.",
+            "extraCollectedToast": "Marcat ca încasat.",
+            "extraPendingToast": "Marcat ca în așteptare.",
+            "extraDeleteTitle": "Șterge lucrarea suplimentară",
+            "extraDeleteBody": "Ștergi „{concept}” din {date} pentru {amount}?",
+            "extraDeleted": "Lucrare suplimentară ștearsă.",
+            "mainNav": "Navigare principală",
+            "today": "Azi",
+            "chooseDay": "Alege ziua",
+            "daysOfMonth": "Zilele lunii",
+            "shift": "Tură",
+            "delete": "Șterge",
+            "jndDayLabel": "Codul JND pentru zi",
+            "dayBase": "Baza zilei",
+            "autosave": "Se salvează automat",
+            "save": "Salvează",
+            "saving": "Se salvează…",
+            "saved": "Salvat",
+            "savedCheck": "Salvat ✓",
+            "unsaved": "Nesalvat",
+            "saveError": "Nu s-a putut salva. Verifică setările de stocare sau de confidențialitate ale browserului.",
+            "saveBadgeTitle": "Datele tale sunt salvate pe acest dispozitiv",
+            "monthlyView": "Vizualizare lunară",
+            "daysWorked": "Zile lucrate",
+            "base": "Bază",
+            "monthSalary": "Salariu lunar",
+            "daysRange": "Zilele 1–{count}",
+            "tapToEdit": "Atinge un JND pentru a-l edita",
+            "day": "Ziua",
+            "prevMonth": "Luna anterioară",
+            "nextMonth": "Luna următoare",
+            "jndAria": "JND pentru ziua {day}",
+            "dayAria": "Ziua {day}",
+            "withShift": ", cu tură",
+            "annualSummary": "Sumar anual",
+            "annualTitle": "Anul {year}",
+            "grandTotal": "Total general",
+            "baseShifts": "Plata de bază",
+            "pluses": "Plusuri (+)",
+            "savings15": "Economii 15%",
+            "monthlyTotals": "Totaluri lunare",
+            "figuresIn": "Sume în ₽",
+            "month": "Luna",
+            "days": "Zile",
+            "total": "Total",
+            "bonus1": "Bonus semestrul I",
+            "bonus2": "Bonus semestrul II",
+            "prizeDetail": "{days} ({months}) × {money}",
+            "oddOnly": "Doar lunile impare",
+            "savingsNote": "Doar informativ: nu se scade din total.",
+            "seeDetail": "Vezi detalii",
+            "settings": "Setări",
+            "pricesBackup": "Prețuri și copie de rezervă",
+            "pricesFor": "Prețuri pentru",
+            "restore": "Resetează",
+            "pricesNote": "Salvate doar pentru acest an. Modificarea lor recalculează toate bazele din an.",
+            "jndLetterByLetter": "JND se citește literă cu literă.",
+            "jndNote": "Fiecare literă cu preț își adaugă valoarea; repetările contează. Semnul + și alte simboluri nu adaugă nimic.",
+            "changesSaved": "Modificările se salvează automat pe acest dispozitiv.",
+            "backup": "Copie de rezervă",
+            "backupNote": "Exportă un CSV pentru a păstra o copie. Dacă schimbi telefonul sau ștergi datele browserului, poți restabili totul cu „Import CSV”.",
+            "exportCsv": "Exportă CSV",
+            "importCsv": "Importă CSV",
+            "backupMobile": "Pe telefon, „Export” deschide meniul pentru a salva sau partaja fișierul. CSV-ul include toți anii.",
+            "deleteData": "Șterge datele",
+            "deleteNote": "Aceste acțiuni nu pot fi anulate. Exportă mai întâi o copie de rezervă dacă vrei să păstrezi o copie.",
+            "deleteDataFor": "Șterge datele pentru",
+            "deleteAll": "Șterge toate datele",
+            "howItWorks": "Cum funcționează?",
+            "howItWorksText": "Alege luna și ziua, introdu JND, iar baza se calculează instant. Câmpul (+) apare doar în lunile impare și se adaugă o dată pe lună.",
+            "seeHelp": "Vezi ajutorul rapid",
+            "cancel": "Anulează",
+            "accept": "OK",
+            "close": "Închide",
+            "footnote": "Total general = cele 12 luni + bonus semestrul I + bonus semestrul II.<br>Economiile de 15% se calculează doar din IAN, MAR, MAI, IUL, SEP și NOI.",
+            "version": "My Salary · JND · Versiunea 1.0<br>Funcționează offline · Datele tale rămân pe acest dispozitiv.",
+            "plusTitle": "Plus lunar",
+            "plusCopy": "Se adaugă o dată la salariul lunii. Nu pe zi.",
+            "plusAria": "Plus lunar manual",
+            "noPlusTitle": "Această lună nu are (+).",
+            "noPlusText": "Salariul este doar suma bazelor zilelor.",
+            "breakdownEmpty": "Introdu un JND pentru a vedea calculul.",
+            "breakdownNote": "· semnul + și alte simboluri nu adaugă nimic",
+            "addLetter": "Adaugă literă",
+            "addLetterAria": "Adaugă {letter}, preț {price}",
+            "priceAria": "Prețul pentru {letter}",
+            "otherYear": "+ Alt an…",
+            "yearCreated": "Anul {year} a fost creat cu prețurile anului cel mai apropiat.",
+            "dayDot": "Ziua {day} · {month}",
+            "loadWarning": "Datele salvate nu au putut fi citite. Se pornește de la zero.",
+            "continue": "Continuă",
+            "deleteEverything": "Șterge tot",
+            "gotIt": "Am înțeles",
+            "finalError": "Introdu {word} pentru a confirma.",
+            "emptyDay": "Acea zi este deja goală.",
+            "shiftSaved": "Tură salvată.",
+            "clearTitle": "Șterge tura",
+            "clearBody": "<p>JND {jnd} va fi eliminat din <b>{date}</b>.</p><p>Baza acelei zile va reveni la {zero}.</p>",
+            "dayDeleted": "Zi ștearsă.",
+            "wentToday": "S-a trecut la azi: {date}.",
+            "errEmptyFile": "Fișierul este gol sau nu conține date.",
+            "errColumns": "Lipsesc coloane. CSV-ul trebuie să conțină: anio, mes, dia și jnd.",
+            "errNoRows": "Nu s-a găsit niciun rând valid.",
+            "importInvalid": "<p class=\"warn\">{n} rând(uri) cu date invalide vor fi ignorate.</p>",
+            "importTitle": "Importă copia de rezervă",
+            "importBody": "<p>Datele pentru acești ani vor fi înlocuite complet: {years}.</p><p>Ture de importat: {days}.</p>{invalid}<p class=\"hint\">Alți ani nu sunt afectați. Această acțiune nu poate fi anulată.</p>",
+            "importBtn": "Importă",
+            "imported": "Copie de rezervă importată: {n} ture.",
+            "importFailTitle": "Importul nu a reușit",
+            "importFailHint": "Alege un CSV exportat din această aplicație.",
+            "shareTitle": "Copie de rezervă My Salary",
+            "shared": "Copie de rezervă partajată.",
+            "csvDownloaded": "CSV descărcat.",
+            "eraseYearTitle": "Șterge datele pentru {year}",
+            "eraseYearBody": "<p>Toate turele, (+) și totalurile pentru <b>{year}</b> vor fi șterse.</p><p>Prețurile pentru acel an sunt păstrate. Alți ani nu sunt afectați.</p><p class=\"warn\">Această acțiune nu poate fi anulată.</p>",
+            "yearDeleted": "Datele pentru {year} au fost șterse.",
+            "eraseAllTitle": "Șterge toate datele",
+            "eraseAllBody": "<p>Toți anii, toate turele și toate (+) vor fi șterse.</p><p class=\"warn\">Această acțiune nu poate fi anulată.</p>",
+            "finalTitle": "Confirmare finală",
+            "finalBody": "<p>Introdu <b>{word}</b> pentru a confirma că vrei să ștergi tot.</p>",
+            "confirmWord": "ȘTERGE",
+            "allDeleted": "Toate datele au fost șterse.",
+            "restoreTitle": "Resetează prețurile pentru {year}",
+            "restoreBody": "<p>Vor fi folosite prețurile originale: X {x}, S {s}, M {m}, Y {y}, P {p}.</p><p>Turele nu sunt șterse; doar bazele sunt recalculate.</p>",
+            "restored": "Prețuri resetate.",
+            "helpTitle": "Ajutor rapid",
+            "help1": "1. Alege luna și atinge o zi.",
+            "help2": "2. Introdu JND (X, XP, XMP…) sau folosește butoanele X, S, M, Y, P.",
+            "help3": "3. Baza se calculează instant și se salvează automat.",
+            "help4": "(+) apare doar în IAN, MAR, MAI, IUL, SEP și NOI. Se adaugă o dată pe lună.",
+            "help5": "Economiile de 15% sunt doar informative: folosesc doar acele luni impare și nu se scad din total.",
+            "help6": "Copie de rezervă: exportă un CSV din când în când. Dacă ștergi datele browserului, CSV-ul este copia ta de siguranță.",
+            "openYearTitle": "Deschide alt an",
+            "openYearBody": "<p>Introdu un an între 2019 și 2100. Dacă nu există, este creat gol cu prețurile anului cel mai apropiat.</p>",
+            "invalidYear": "Introdu un an valid (2019–2100).",
+            "open": "Deschide",
+            "salaries": "Salarii",
+            "bonuses": "Bonusuri",
+            "debtTab": "Datorii",
+            "debtEyebrow": "Salariu oficial",
+            "debtTitle": "Datorii față de companie",
+            "debtPending": "Datorie restantă",
+            "debtPaidLabel": "Achitat",
+            "debtTotalLabel": "Total",
+            "debtFixedTitle": "Salariu oficial",
+            "debtThisMonth": "Luna aceasta",
+            "debtEarned": "Salariu calculat",
+            "debtFixedShort": "Salariu oficial",
+            "debtDiff": "Diferență",
+            "debtNoDays": "Nu sunt ture introduse în această lună.",
+            "debtNoDebt": "Această lună nu generează datorie.",
+            "debtSurplus": "Ai câștigat {amount} peste salariul oficial.",
+            "debtAddTitle": "Achită datoria",
+            "debtAmount": "Sumă",
+            "debtPayment": "Plăți",
+            "debtRemaining": "Rămas de achitat",
+            "debtPartialPill": "Parțial",
+            "debtPayAction": "Adaugă plată",
+            "debtPayTitle": "Achită datoria",
+            "debtPayBody": "Datorie pentru {month}: {remaining} de achitat. Cât ai plătit?",
+            "debtPayButton": "Înregistrează plata",
+            "debtPayInvalid": "Introdu o sumă între 1 și {remaining}.",
+            "debtPaymentAdded": "Plată înregistrată.",
+            "debtAddButton": "Achită",
+            "debtFormHint": "Suma este salariul oficial. Plăți arată cât ai câștigat în acea lună; o poți modifica. Scăderea are loc doar când apeși Achită.",
+            "debtListTitle": "Datorii înregistrate",
+            "debtEmpty": "Nu sunt datorii înregistrate.",
+            "debtPaidPill": "Achitat",
+            "debtPendingPill": "În așteptare",
+            "debtDeleted": "Datorie ștearsă.",
+            "debtDeleteTitle": "Șterge datoria",
+            "debtDeleteBody": "Datoria pentru <b>{month}</b> în valoare de <b>{amount}</b> va fi ștearsă.",
+            "debtAmountRequired": "Introdu o sumă mai mare decât 0."
       }
 };
 
@@ -3118,6 +3357,8 @@ function toast(message){
 }
 
 function syncLangButton(){
+  const current = $("#currentLangName");
+  if (current) current.textContent = LANG_NAMES[lang] || lang.toUpperCase();
   $$("#appMenu [data-lang]").forEach(item => {
     const on = item.dataset.lang === lang;
     item.classList.toggle("on", on);
@@ -3128,8 +3369,12 @@ function syncLangButton(){
 function closeAppMenu(){
   const menu = $("#appMenu");
   const btn = $("#btnAppMenu");
+  const submenu = $("#languageSubmenu");
+  const langBtn = $("#btnLanguages");
   if (menu) menu.hidden = true;
   if (btn) btn.setAttribute("aria-expanded", "false");
+  if (submenu) submenu.hidden = true;
+  if (langBtn) langBtn.setAttribute("aria-expanded", "false");
 }
 
 function toggleAppMenu(force){
@@ -3137,8 +3382,12 @@ function toggleAppMenu(force){
   const btn = $("#btnAppMenu");
   if (!menu) return;
   const open = typeof force === "boolean" ? force : menu.hidden;
-  menu.hidden = !open;
-  if (btn) btn.setAttribute("aria-expanded", String(open));
+  if (!open){
+    closeAppMenu();
+    return;
+  }
+  menu.hidden = false;
+  if (btn) btn.setAttribute("aria-expanded", "true");
 }
 
 function loadTheme(){
@@ -4766,6 +5015,16 @@ function bindEvents(){
     toggleAppMenu();
   });
   $("#appMenu").addEventListener("click", event => {
+    if (event.target.closest("#btnLanguages")){
+      const submenu = $("#languageSubmenu");
+      const button = $("#btnLanguages");
+      if (submenu && button){
+        const open = submenu.hidden;
+        submenu.hidden = !open;
+        button.setAttribute("aria-expanded", String(open));
+      }
+      return;
+    }
     const item = event.target.closest("[data-lang]");
     if (item){
       applyLanguage(item.dataset.lang, true);
