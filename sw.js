@@ -1,4 +1,4 @@
-const CACHE_PREFIX = "misalario-shared-";
+const CACHE_PREFIX = "misalario-uz-";
 const CACHE = CACHE_PREFIX + "v1";
 const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png"];
 
