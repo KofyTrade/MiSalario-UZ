@@ -700,6 +700,12 @@
     overflow:hidden;text-overflow:ellipsis;
   }
   .extra-stat b{display:block;font-size:13px;font-weight:950;margin-top:3px;color:#fff;white-space:nowrap}
+  .mini-btn{
+    border:1px solid var(--line);background:#fff;color:var(--brand);
+    border-radius:999px;padding:6px 10px;font-size:9.5px;font-weight:850;
+    white-space:nowrap;max-width:48%;
+  }
+  .mini-btn:active{transform:scale(.97)}
   .extra-form{display:grid;gap:10px}
   .extra-form .btn{width:100%}
   .extra-form .money-field{width:100%}
@@ -1116,6 +1122,7 @@
     <div class="card">
       <div class="card-head">
         <h3 data-i18n="extraAddTitle">Anotar trabajo extra</h3>
+        <button type="button" class="mini-btn" id="extraAutofill" data-i18n="extraAutofill">Usar últimos datos</button>
       </div>
       <div class="extra-form">
         <label class="field">
@@ -1379,6 +1386,9 @@ const I18N = {
       extraConceptPlaceholder: "E.g.: moving, repair",
       extraAmount: "Amount",
       extraAddButton: "Add extra",
+      extraAutofill: "Use last details",
+      extraAutofillEmpty: "No previous details to autofill.",
+      extraAutofilled: "Last job details loaded.",
       extraListTitle: "Jobs this month",
       extraEmpty: "No extra jobs this month yet.",
       extraNote: "This money is separate: it doesn't add to salary or debts.",
@@ -1595,6 +1605,9 @@ const I18N = {
       extraConceptPlaceholder: "Ej.: mudanza, reparación",
       extraAmount: "Importe",
       extraAddButton: "Agregar extra",
+      extraAutofill: "Usar últimos datos",
+      extraAutofillEmpty: "Todavía no hay datos para autorrellenar.",
+      extraAutofilled: "Datos del último trabajo cargados.",
       extraListTitle: "Trabajos del mes",
       extraEmpty: "Todavía no hay trabajos extra este mes.",
       extraNote: "Este dinero es aparte: no se suma al salario ni a las deudas.",
@@ -1810,6 +1823,9 @@ const I18N = {
       extraConceptPlaceholder: "Masalan: ko‘chirish, ta’mirlash",
       extraAmount: "Summa",
       extraAddButton: "Qo‘shimcha qo‘shish",
+      extraAutofill: "Oxirgi ma’lumotlar",
+      extraAutofillEmpty: "Avtomatik to‘ldirish uchun ma’lumot yo‘q.",
+      extraAutofilled: "Oxirgi ish ma’lumotlari yuklandi.",
       extraListTitle: "Oydagi ishlar",
       extraEmpty: "Bu oyda hali qo‘shimcha ish yo‘q.",
       extraNote: "Bu pul alohida: maoshga ham, qarzga ham qo‘shilmaydi.",
@@ -2026,6 +2042,9 @@ const I18N = {
       extraConceptPlaceholder: "Напр.: переезд, ремонт",
       extraAmount: "Сумма",
       extraAddButton: "Добавить халтуру",
+      extraAutofill: "Последние данные",
+      extraAutofillEmpty: "Нет данных для автозаполнения.",
+      extraAutofilled: "Данные последней работы загружены.",
       extraListTitle: "Работы за месяц",
       extraEmpty: "За этот месяц халтуры пока нет.",
       extraNote: "Эти деньги отдельно: не прибавляются к зарплате и долгам.",
@@ -3638,10 +3657,28 @@ function addExtra(){
   }]);
   saveNow();
   ui.extraMonth = month - 1;
+  $("#extraClient").value = "";
   $("#extraConcept").value = "";
   $("#extraAmount").value = "";
+  $("#extraCollected").checked = true;
   renderExtra();
+  $("#extraDate").value = extraDefaultDate(year, month - 1);
   toast(t("extraAdded"));
+}
+
+function autofillExtra(){
+  const jobs = allExtra().slice().sort((a, b) => b.createdAt - a.createdAt);
+  const last = jobs[0];
+  if (!last || (!last.client && !last.concept)){
+    toast(t("extraAutofillEmpty"));
+    return;
+  }
+  $("#extraClient").value = last.client || "";
+  $("#extraConcept").value = last.concept || "";
+  $("#extraCollected").checked = last.collected !== false;
+  $("#extraAmount").value = "";
+  $("#extraAmount").focus();
+  toast(t("extraAutofilled"));
 }
 
 function toggleExtra(id){
@@ -4308,6 +4345,7 @@ function bindEvents(){
   });
 
   $("#extraAdd").addEventListener("click", addExtra);
+  $("#extraAutofill").addEventListener("click", autofillExtra);
   $("#extraMonths").addEventListener("click", event => {
     const chip = event.target.closest(".month-chip");
     if (!chip) return;
