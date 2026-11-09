@@ -1374,7 +1374,7 @@ const I18N = {
       debtPayInvalid: "Enter an amount between 1 and {remaining}.",
       debtPaymentAdded: "Payment recorded.",
       debtAddButton: "Pay",
-      debtFormHint: "The amount is the official salary. The month's debt is calculated automatically from what you earned; the payment bar reduces that debt.",
+      debtFormHint: "The amount is the official salary. The month's debt is calculated automatically from what you earned; what you enter in Payments reduces that debt.",
       debtListTitle: "Recorded debts",
       debtEmpty: "No debts recorded yet.",
       debtPaidPill: "Paid",
@@ -1562,7 +1562,7 @@ const I18N = {
       debtPayInvalid: "Escribe un monto entre 1 y {remaining}.",
       debtPaymentAdded: "Pago registrado.",
       debtAddButton: "Pagar",
-      debtFormHint: "El monto es el salario oficial. La deuda del mes se calcula sola con lo que ganaste; el pago de la barra se resta de esa deuda.",
+      debtFormHint: "El monto es el salario oficial. La deuda del mes se calcula sola con lo que ganaste; lo que pongas en Pagos se resta de esa deuda.",
       debtListTitle: "Deudas anotadas",
       debtEmpty: "Todavía no hay deudas anotadas.",
       debtPaidPill: "Pagada",
@@ -1749,7 +1749,7 @@ const I18N = {
       debtPayInvalid: "1 dan {remaining} gacha summa kiriting.",
       debtPaymentAdded: "To‘lov yozildi.",
       debtAddButton: "To‘lash",
-      debtFormHint: "Summa — rasmiy maosh. Oy qarzi ishlagan pulingizdan avtomatik hisoblanadi; to‘lov maydoni shu qarzni kamaytiradi.",
+      debtFormHint: "Summa — rasmiy maosh. Oy qarzi ishlagan pulingizdan avtomatik hisoblanadi; To‘lovlar maydonidagi summa shu qarzni kamaytiradi.",
       debtListTitle: "Yozilgan qarzlar",
       debtEmpty: "Hozircha qarzlar yozilmagan.",
       debtPaidPill: "To‘langan",
@@ -1937,7 +1937,7 @@ const I18N = {
       debtPayInvalid: "Введите сумму от 1 до {remaining}.",
       debtPaymentAdded: "Платёж записан.",
       debtAddButton: "Оплатить",
-      debtFormHint: "Сумма — это официальная зарплата. Долг за месяц рассчитывается автоматически из заработанного; оплата из поля уменьшает этот долг.",
+      debtFormHint: "Сумма — это официальная зарплата. Долг за месяц рассчитывается автоматически из заработанного; сумма из «Платежи» уменьшает этот долг.",
       debtListTitle: "Записанные долги",
       debtEmpty: "Долгов пока нет.",
       debtPaidPill: "Выплачено",
@@ -3098,7 +3098,6 @@ function renderDebtList(){
     <div class="debt-row${rowClass}" data-id="${esc(d.id)}">
       <div class="debt-main">
         <b>${monthLabel(d.year, d.month)}</b>
-        <span>${esc(d.note || "—")}</span>
       </div>
       <div class="debt-amount">${money(amount)}<small>${esc(t("debtDiscounted"))} ${money(paidAmount)} · ${esc(t("debtRemaining"))} ${money(remaining)}</small></div>
       <div class="debt-actions">
