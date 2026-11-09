@@ -648,9 +648,9 @@
   .debt-form .money-field{width:100%}
   .debt-form .btn{width:100%}
   @media (min-width:560px){
-    .debt-form{grid-template-columns:1fr 1fr}
-    .debt-form .field.full{grid-column:1 / -1}
-    .debt-form .btn{grid-column:1 / -1}
+    .debt-form{grid-template-columns:1fr}
+    .debt-form .field.full{grid-column:auto}
+    .debt-form .btn{grid-column:auto}
   }
   .debt-row{
     display:grid;grid-template-columns:1fr auto auto;gap:9px;align-items:center;
@@ -922,7 +922,7 @@
 
     <div class="card table-card" style="margin-top:12px">
       <div class="card-head">
-        <h3 data-i18n="daysRange">Días 1–31</h3>
+        <h3 id="daysRangeTitle" data-i18n="daysRange">Días 1–31</h3>
         <span class="hint" data-i18n="tapToEdit">Toca un JND para editarlo</span>
       </div>
       <div class="table-wrap">
@@ -1235,7 +1235,7 @@ const I18N = {
       daysWorked: "Days worked",
       base: "Base",
       monthSalary: "Month salary",
-      daysRange: "Days 1–31",
+      daysRange: "Days 1–{count}",
       tapToEdit: "Tap a JND to edit it",
       day: "Day",
       prevMonth: "Previous month",
@@ -1363,7 +1363,7 @@ const I18N = {
       debtSurplus: "You earned {amount} above the official salary.",
       debtAddTitle: "Pay debt",
       debtAmount: "Amount",
-      debtPayment: "Payment",
+      debtPayment: "Payments",
       debtDiscounted: "Deducted",
       debtRemaining: "Pending",
       debtPartialPill: "Partial",
@@ -1423,7 +1423,7 @@ const I18N = {
       daysWorked: "Días trabajados",
       base: "Base",
       monthSalary: "Salario del mes",
-      daysRange: "Días 1–31",
+      daysRange: "Días 1–{count}",
       tapToEdit: "Toca un JND para editarlo",
       day: "Día",
       prevMonth: "Mes anterior",
@@ -1551,7 +1551,7 @@ const I18N = {
       debtSurplus: "Superaste el fijo por {amount}.",
       debtAddTitle: "Pagar deuda",
       debtAmount: "Monto",
-      debtPayment: "Pago",
+      debtPayment: "Pagos",
       debtDiscounted: "Descontado",
       debtRemaining: "Pendiente",
       debtPartialPill: "Parcial",
@@ -1610,7 +1610,7 @@ const I18N = {
       daysWorked: "Ishlangan kunlar",
       base: "Baza",
       monthSalary: "Oylik maosh",
-      daysRange: "1–31-kunlar",
+      daysRange: "1–{count}-kunlar",
       tapToEdit: "Tahrirlash uchun JND ga bosing",
       day: "Kun",
       prevMonth: "Oldingi oy",
@@ -1738,7 +1738,7 @@ const I18N = {
       debtSurplus: "Belgilangandan {amount} ko‘p ishladingiz.",
       debtAddTitle: "Qarzni to‘lash",
       debtAmount: "Summa",
-      debtPayment: "To‘lov",
+      debtPayment: "To‘lovlar",
       debtDiscounted: "Ushlab qolindi",
       debtRemaining: "Qoldiq",
       debtPartialPill: "Qisman",
@@ -1798,7 +1798,7 @@ const I18N = {
       daysWorked: "Отработанные дни",
       base: "База",
       monthSalary: "Зарплата за месяц",
-      daysRange: "Дни 1–31",
+      daysRange: "Дни 1–{count}",
       tapToEdit: "Нажмите на JND, чтобы изменить",
       day: "День",
       prevMonth: "Предыдущий месяц",
@@ -1926,7 +1926,7 @@ const I18N = {
       debtSurplus: "Вы заработали больше фиксированной суммы на {amount}.",
       debtAddTitle: "Оплатить долг",
       debtAmount: "Сумма",
-      debtPayment: "Оплата",
+      debtPayment: "Платежи",
       debtDiscounted: "Удержано",
       debtRemaining: "Осталось",
       debtPartialPill: "Частично",
@@ -2679,18 +2679,17 @@ function renderQuick(){
   $("#quickTitle").textContent = `${MONTHS_LONG[ui.month]} ${state.activeYear}`;
   $("#quickMonthStats").textContent = `${daysText(stats.worked)} · ${money(stats.salary)}`;
 
-  $("#dayGrid").innerHTML = Array.from({length: 31}, (_, index) => {
+  const count = daysInMonth(state.activeYear, ui.month);
+  $("#dayGrid").innerHTML = Array.from({length: count}, (_, index) => {
     const day = index + 1;
     const raw = yearData.months[ui.month].days[index];
     const filled = String(raw).trim() !== "";
     const isToday = state.activeYear === CURRENT_YEAR && ui.month === CURRENT_MONTH && day === CURRENT_DAY;
     const isSelected = day === ui.day;
-    const isOut = day > daysInMonth(state.activeYear, ui.month);
     const classes = ["day-btn"];
     if (filled) classes.push("filled");
     if (isSelected) classes.push("selected");
     if (isToday) classes.push("today");
-    if (isOut) classes.push("out");
     return `<button type="button" class="${classes.join(" ")}" data-day="${day}"
       aria-pressed="${isSelected}" aria-label="${esc(t("dayAria", {day}) + (filled ? t("withShift") : ""))}">${day}</button>`;
   }).join("");
@@ -2761,20 +2760,20 @@ function updateMonthTotals(){
 
 function renderMonthTable(){
   const yearData = currentYearData();
-  $("#monthBody").innerHTML = Array.from({length: 31}, (_, index) => {
+  const count = daysInMonth(state.activeYear, ui.month);
+  $("#monthBody").innerHTML = Array.from({length: count}, (_, index) => {
     const day = index + 1;
     const raw = yearData.months[ui.month].days[index] || "";
     const base = baseOf(raw, yearData.prices);
-    const isOut = day > daysInMonth(state.activeYear, ui.month);
     const isToday = state.activeYear === CURRENT_YEAR && ui.month === CURRENT_MONTH && day === CURRENT_DAY;
-    const weekday = isOut ? "" : WEEKDAYS[new Date(state.activeYear, ui.month, day).getDay()];
+    const weekdayIndex = new Date(state.activeYear, ui.month, day).getDay();
+    const weekday = WEEKDAYS[weekdayIndex];
     const classes = [];
-    if (!isOut && (new Date(state.activeYear, ui.month, day).getDay() === 0 || new Date(state.activeYear, ui.month, day).getDay() === 6)) classes.push("weekend");
+    if (weekdayIndex === 0 || weekdayIndex === 6) classes.push("weekend");
     if (isToday) classes.push("today");
-    if (isOut) classes.push("out");
     if (raw.trim() !== "") classes.push("has-data");
     return `<tr class="${classes.join(" ")}" data-row="${day}">
-      <td class="day-cell"><span class="dnum">${day}</span>${weekday ? `<span class="wk">${weekday}</span>` : ""}</td>
+      <td class="day-cell"><span class="dnum">${day}</span><span class="wk">${weekday}</span></td>
       <td><input class="jnd-cell" data-day="${day}" value="${esc(raw)}"
         aria-label="${esc(t("jndAria", {day}))}" inputmode="text" autocapitalize="characters"
         autocomplete="off" autocorrect="off" spellcheck="false" maxlength="40"
@@ -2782,6 +2781,8 @@ function renderMonthTable(){
       <td class="base-cell">${base ? num(base) : '<span class="zero">—</span>'}</td>
     </tr>`;
   }).join("");
+  const range = $("#daysRangeTitle");
+  if (range) range.textContent = t("daysRange", {count});
 }
 
 function renderMonth(){
