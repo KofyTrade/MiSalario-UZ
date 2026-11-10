@@ -936,6 +936,9 @@
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
   }
+  @media (min-width:720px){
+    .annual-stats{grid-template-columns:repeat(5,1fr)}
+  }
 
   /* ---------- Dark mode: dark gray, not black ---------- */
   html[data-theme="dark"]{
@@ -1162,7 +1165,7 @@
     <div class="stats-grid">
       <div class="stat"><span data-i18n="daysWorked">Días trabajados</span><strong id="mDays">0</strong></div>
       <div class="stat"><span data-i18n="base">Base</span><strong id="mBase">$ 0</strong></div>
-      <div class="stat accent" id="mPlusStat"><span>(+)</span><strong id="mPlus">—</strong></div>
+      <div class="stat accent" id="mPlusStat"><span data-i18n="pluses">Plus (P)</span><strong id="mPlus">—</strong></div>
       <div class="stat total"><span data-i18n="monthSalary">Salario del mes</span><strong id="mSalary">$ 0</strong></div>
     </div>
 
@@ -1202,10 +1205,11 @@
       <div class="hero-sub" id="aBreakdown"></div>
     </div>
 
-    <div class="stats-grid">
+    <div class="stats-grid annual-stats">
       <div class="stat"><span data-i18n="daysWorked">Días trabajados</span><strong id="aDays">0</strong></div>
       <div class="stat"><span data-i18n="baseShifts">Base jornadas</span><strong id="aBase">$ 0</strong></div>
-      <div class="stat"><span data-i18n="pluses">Pluses (+)</span><strong id="aPlus">$ 0</strong></div>
+      <div class="stat"><span data-i18n="pluses">Plus (P)</span><strong id="aPlus">$ 0</strong></div>
+      <div class="stat"><span data-i18n="plusTitle">Premio del mes</span><strong id="aPremium">$ 0</strong></div>
       <div class="stat"><span data-i18n="savings15">Ahorro 15%</span><strong id="aAhorro">$ 0</strong></div>
     </div>
 
@@ -1218,7 +1222,7 @@
         <div class="table-wrap">
           <table class="year-table">
             <thead>
-              <tr><th data-i18n="month">Mes</th><th data-i18n="days">Días</th><th data-i18n="base">Base</th><th>(+)</th><th data-i18n="total">Total</th></tr>
+              <tr><th data-i18n="month">Mes</th><th data-i18n="days">Días</th><th data-i18n="base">Base</th><th data-i18n="pluses">Plus (P)</th><th data-i18n="prizeShort">Premio</th><th data-i18n="total">Total</th></tr>
             </thead>
             <tbody id="yearBody"></tbody>
             <tfoot id="yearFoot"></tfoot>
@@ -1611,7 +1615,7 @@ const I18N = {
       annualTitle: "Year {year}",
       grandTotal: "Grand total",
       baseShifts: "Base pay",
-      pluses: "Pluses (+)",
+      pluses: "Plus (P)",
       savings15: "Savings 15%",
       monthlyTotals: "Monthly totals",
       figuresIn: "Amounts in ₽",
@@ -1642,18 +1646,19 @@ const I18N = {
       deleteDataFor: "Delete data for",
       deleteAll: "Delete all data",
       howItWorks: "How does it work?",
-      howItWorksText: "Choose the month and day, type the JND and the base is calculated instantly. The (+) field appears only in odd months and is added once per month.",
+      howItWorksText: "Choose the month and day, type the JND and the base is calculated instantly. The monthly prize field appears only in odd months and is added once per month.",
       seeHelp: "See quick help",
       cancel: "Cancel",
       accept: "OK",
       close: "Close",
       footnote: "Grand total = the 12 months + 1st half bonus + 2nd half bonus.<br>The 15% savings is calculated only from JAN, MAR, MAY, JUL, SEP and NOV.",
       version: "My Salary · JND · Version 1.0<br>Works offline · Your data stays on this device.",
-      plusTitle: "Monthly plus",
+      plusTitle: "Monthly prize",
+      prizeShort: "Prize",
       plusCopy: "Added once to the month's salary. Not per day.",
-      plusAria: "Manual monthly plus",
-      noPlusTitle: "This month has no (+).",
-      noPlusText: "The salary is just the sum of the day bases.",
+      plusAria: "Manual monthly prize",
+      noPlusTitle: "This month has no monthly prize.",
+      noPlusText: "The salary is the base plus the P pluses.",
       breakdownEmpty: "Type a JND to see the calculation.",
       breakdownNote: "· the + and other symbols add nothing",
       addLetter: "Add letter",
@@ -1687,10 +1692,10 @@ const I18N = {
       shared: "Backup shared.",
       csvDownloaded: "CSV downloaded.",
       eraseYearTitle: "Delete data for {year}",
-      eraseYearBody: "<p>All shifts, (+) and totals for <b>{year}</b> will be deleted.</p><p>The prices for that year are kept. Other years are not touched.</p><p class=\"warn\">This action can't be undone.</p>",
+      eraseYearBody: "<p>All shifts, monthly prizes and totals for <b>{year}</b> will be deleted.</p><p>The prices for that year are kept. Other years are not touched.</p><p class=\"warn\">This action can't be undone.</p>",
       yearDeleted: "Data for {year} deleted.",
       eraseAllTitle: "Delete all data",
-      eraseAllBody: "<p>All years, all shifts and all (+) will be deleted.</p><p class=\"warn\">This action can't be undone.</p>",
+      eraseAllBody: "<p>All years, all shifts and all monthly prizes will be deleted.</p><p class=\"warn\">This action can't be undone.</p>",
       finalTitle: "Final confirmation",
       finalBody: "<p>Type <b>{word}</b> to confirm that you want to delete everything.</p>",
       confirmWord: "DELETE",
@@ -1702,7 +1707,7 @@ const I18N = {
       help1: "1. Choose the month and tap a day.",
       help2: "2. Type the JND (X, XP, XMP…) or use the X, S, M, Y, P buttons.",
       help3: "3. The base is calculated instantly and saved automatically.",
-      help4: "The (+) only appears in JAN, MAR, MAY, JUL, SEP and NOV. It is added once per month.",
+      help4: "The monthly prize only appears in JAN, MAR, MAY, JUL, SEP and NOV. It is added once per month.",
       help5: "The 15% savings is for information only: it uses only those odd months and is not subtracted from the total.",
       help6: "Backup: export a CSV from time to time. If you clear your browser data, the CSV is your safety copy.",
       openYearTitle: "Open another year",
@@ -1834,7 +1839,7 @@ const I18N = {
       annualTitle: "Año {year}",
       grandTotal: "Total general",
       baseShifts: "Base jornadas",
-      pluses: "Pluses (+)",
+      pluses: "Plus (P)",
       savings15: "Ahorro 15%",
       monthlyTotals: "Totales por mes",
       figuresIn: "Cifras en ₽",
@@ -1865,18 +1870,19 @@ const I18N = {
       deleteDataFor: "Borrar datos de",
       deleteAll: "Borrar todos los datos",
       howItWorks: "¿Cómo funciona?",
-      howItWorksText: "Elige el mes y el día, escribe el JND y la base se calcula al instante. El campo (+) solo aparece en meses impares y se suma una vez al mes.",
+      howItWorksText: "Elige el mes y el día, escribe el JND y la base se calcula al instante. El campo Premio del mes solo aparece en meses impares y se suma una vez al mes.",
       seeHelp: "Ver ayuda rápida",
       cancel: "Cancelar",
       accept: "Aceptar",
       close: "Cerrar",
       footnote: "Total general = suma de los 12 meses + premio del 1er semestre + premio del 2do semestre.<br>El ahorro del 15% se calcula solo con ENE, MAR, MAY, JUL, SEP y NOV.",
       version: "Mi Salario · JND · Versión 1.0<br>Funciona sin internet · Tus datos quedan guardados en este dispositivo.",
-      plusTitle: "Plus del mes",
+      plusTitle: "Premio del mes",
+      prizeShort: "Premio",
       plusCopy: "Se suma una sola vez al salario del mes. No es por día.",
-      plusAria: "Plus manual del mes",
-      noPlusTitle: "Este mes no tiene (+).",
-      noPlusText: "El salario es solo la suma de las bases de los días.",
+      plusAria: "Premio mensual manual",
+      noPlusTitle: "Este mes no tiene premio mensual.",
+      noPlusText: "El salario es la base más los plus (P).",
       breakdownEmpty: "Escribe un JND para ver el cálculo.",
       breakdownNote: "· el + y otros símbolos no suman",
       addLetter: "Agregar letra",
@@ -1910,10 +1916,10 @@ const I18N = {
       shared: "Respaldo compartido.",
       csvDownloaded: "CSV descargado.",
       eraseYearTitle: "Borrar datos de {year}",
-      eraseYearBody: "<p>Se borrarán todas las jornadas, los (+) y los totales de <b>{year}</b>.</p><p>Los precios de ese año se conservan. Los demás años no se tocan.</p><p class=\"warn\">Esta acción no se puede deshacer.</p>",
+      eraseYearBody: "<p>Se borrarán todas las jornadas, los premios mensuales y los totales de <b>{year}</b>.</p><p>Los precios de ese año se conservan. Los demás años no se tocan.</p><p class=\"warn\">Esta acción no se puede deshacer.</p>",
       yearDeleted: "Datos de {year} borrados.",
       eraseAllTitle: "Borrar todos los datos",
-      eraseAllBody: "<p>Se borrarán <b>todos los años</b>, todas las jornadas y todos los (+).</p><p class=\"warn\">Esta acción no se puede deshacer.</p>",
+      eraseAllBody: "<p>Se borrarán <b>todos los años</b>, todas las jornadas y todos los premios mensuales.</p><p class=\"warn\">Esta acción no se puede deshacer.</p>",
       finalTitle: "Confirmación final",
       finalBody: "<p>Escribe <b>{word}</b> para confirmar que quieres borrar todo.</p>",
       confirmWord: "BORRAR",
@@ -1925,7 +1931,7 @@ const I18N = {
       help1: "1. Elige el mes y toca un día.",
       help2: "2. Escribe el JND (X, XP, XMP…) o usa los botones X, S, M, Y, P.",
       help3: "3. La base se calcula al instante. Se guarda sola.",
-      help4: "El (+) solo aparece en ENE, MAR, MAY, JUL, SEP y NOV. Se suma una vez al mes.",
+      help4: "El Premio del mes solo aparece en ENE, MAR, MAY, JUL, SEP y NOV. Se suma una vez al mes.",
       help5: "El ahorro 15% es informativo: se calcula solo con esos meses impares y no se resta del total.",
       help6: "Respaldo: exporta un CSV de vez en cuando. Si borras los datos del navegador, el CSV es tu copia de seguridad.",
       openYearTitle: "Abrir otro año",
@@ -2056,7 +2062,7 @@ const I18N = {
       annualTitle: "{year}-yil",
       grandTotal: "Umumiy jami",
       baseShifts: "Smenalar bazasi",
-      pluses: "Qo‘shimchalar (+)",
+      pluses: "Qo‘shimcha (P)",
       savings15: "Jamg‘arma 15%",
       monthlyTotals: "Oylik jami",
       figuresIn: "Summalar ₽da",
@@ -2087,18 +2093,19 @@ const I18N = {
       deleteDataFor: "Ma’lumotlarni o‘chirish:",
       deleteAll: "Barcha ma’lumotlarni o‘chirish",
       howItWorks: "Qanday ishlaydi?",
-      howItWorksText: "Oy va kunni tanlang, JND kiriting — baza darhol hisoblanadi. (+) maydoni faqat toq oylarda chiqadi va oyiga bir marta qo‘shiladi.",
+      howItWorksText: "Oy va kunni tanlang, JND kiriting — baza darhol hisoblanadi. Oylik mukofot maydoni faqat toq oylarda chiqadi va oyiga bir marta qo‘shiladi.",
       seeHelp: "Tezkor yordam",
       cancel: "Bekor qilish",
       accept: "OK",
       close: "Yopish",
       footnote: "Umumiy jami = 12 oy + 1-yarim yillik mukofoti + 2-yarim yillik mukofoti.<br>15% jamg‘arma faqat YAN, MAR, MAY, IYUL, SEN va NOY oylaridan hisoblanadi.",
       version: "Maoshim · JND · 1.0-versiya<br>Internetsiz ishlaydi · Ma’lumotlar shu qurilmada saqlanadi.",
-      plusTitle: "Oylik qo‘shimcha",
+      plusTitle: "Oylik mukofot",
+      prizeShort: "Mukofot",
       plusCopy: "Oy maoshiga bir marta qo‘shiladi. Har bir kun uchun emas.",
-      plusAria: "Qo‘lda kiritilgan oylik qo‘shimcha",
-      noPlusTitle: "Bu oyda (+) yo‘q.",
-      noPlusText: "Maosh faqat kunlik bazalar yig‘indisidan iborat.",
+      plusAria: "Qo‘lda kiritilgan oylik mukofot",
+      noPlusTitle: "Bu oyda oylik mukofot yo‘q.",
+      noPlusText: "Maosh baza va P qo‘shimchalaridan iborat.",
       breakdownEmpty: "Hisobni ko‘rish uchun JND kiriting.",
       breakdownNote: "· + va boshqa belgilar hech narsa qo‘shmaydi",
       addLetter: "Harf qo‘shish",
@@ -2132,10 +2139,10 @@ const I18N = {
       shared: "Nusxa ulashildi.",
       csvDownloaded: "CSV yuklab olindi.",
       eraseYearTitle: "{year}-yil ma’lumotlarini o‘chirish",
-      eraseYearBody: "<p><b>{year}</b> yilidagi barcha smenalar, (+) va jami o‘chiriladi.</p><p>O‘sha yil narxlari saqlanadi. Boshqa yillarga tegilmaydi.</p><p class=\"warn\">Bu amalni bekor qilib bo‘lmaydi.</p>",
+      eraseYearBody: "<p><b>{year}</b> yilidagi barcha smenalar, oylik mukofotlar va jami o‘chiriladi.</p><p>O‘sha yil narxlari saqlanadi. Boshqa yillarga tegilmaydi.</p><p class=\"warn\">Bu amalni bekor qilib bo‘lmaydi.</p>",
       yearDeleted: "{year}-yil ma’lumotlari o‘chirildi.",
       eraseAllTitle: "Barcha ma’lumotlarni o‘chirish",
-      eraseAllBody: "<p><b>Barcha yillar</b>, barcha smenalar va barcha (+) o‘chiriladi.</p><p class=\"warn\">Bu amalni bekor qilib bo‘lmaydi.</p>",
+      eraseAllBody: "<p><b>Barcha yillar</b>, barcha smenalar va barcha oylik mukofotlar o‘chiriladi.</p><p class=\"warn\">Bu amalni bekor qilib bo‘lmaydi.</p>",
       finalTitle: "Yakuniy tasdiqlash",
       finalBody: "<p>Hammasini o‘chirish uchun <b>{word}</b> deb yozing.</p>",
       confirmWord: "OCHIRISH",
@@ -2147,7 +2154,7 @@ const I18N = {
       help1: "1. Oy va kunni tanlang.",
       help2: "2. JND kiriting (X, XP, XMP…) yoki X, S, M, Y, P tugmalaridan foydalaning.",
       help3: "3. Baza darhol hisoblanadi va avtomatik saqlanadi.",
-      help4: "(+) faqat YAN, MAR, MAY, IYUL, SEN va NOY oylarida chiqadi. Oyiga bir marta qo‘shiladi.",
+      help4: "Oylik mukofot faqat YAN, MAR, MAY, IYUL, SEN va NOY oylarida chiqadi. Oyiga bir marta qo‘shiladi.",
       help5: "15% jamg‘arma faqat ma’lumot uchun: toq oylar bo‘yicha hisoblanadi va jamidan ayirilmaydi.",
       help6: "Zaxira: vaqti-vaqti bilan CSV yuklab oling. Brauzer ma’lumotlarini tozalasangiz, CSV sizning sug‘urtangiz.",
       openYearTitle: "Boshqa yilni ochish",
@@ -2279,7 +2286,7 @@ const I18N = {
       annualTitle: "{year} год",
       grandTotal: "Общий итог",
       baseShifts: "База смен",
-      pluses: "Надбавки (+)",
+      pluses: "Плюс (P)",
       savings15: "Накопления 15%",
       monthlyTotals: "Итоги по месяцам",
       figuresIn: "Суммы в ₽",
@@ -2310,18 +2317,19 @@ const I18N = {
       deleteDataFor: "Удалить данные за",
       deleteAll: "Удалить все данные",
       howItWorks: "Как это работает?",
-      howItWorksText: "Выберите месяц и день, введите JND — база рассчитается сразу. Поле (+) появляется только в нечётных месяцах и прибавляется один раз за месяц.",
+      howItWorksText: "Выберите месяц и день, введите JND — база рассчитается сразу. Поле «Премия за месяц» появляется только в нечётных месяцах и прибавляется один раз за месяц.",
       seeHelp: "Быстрая помощь",
       cancel: "Отмена",
       accept: "ОК",
       close: "Закрыть",
       footnote: "Общий итог = сумма 12 месяцев + премия за 1-е полугодие + премия за 2-е полугодие.<br>Накопления 15% считаются только по январю, марту, маю, июлю, сентябрю и ноябрю.",
       version: "Моя зарплата · JND · Версия 1.0<br>Работает без интернета · Данные хранятся на этом устройстве.",
-      plusTitle: "Надбавка за месяц",
+      plusTitle: "Премия за месяц",
+      prizeShort: "Премия",
       plusCopy: "Прибавляется к зарплате за месяц один раз. Не за день.",
-      plusAria: "Надбавка за месяц (вручную)",
-      noPlusTitle: "В этом месяце нет (+).",
-      noPlusText: "Зарплата — это только сумма баз за дни.",
+      plusAria: "Премия за месяц (вручную)",
+      noPlusTitle: "В этом месяце нет премии.",
+      noPlusText: "Зарплата — это база плюс плюсы (P).",
       breakdownEmpty: "Введите JND, чтобы увидеть расчёт.",
       breakdownNote: "· знак + и другие символы ничего не добавляют",
       addLetter: "Добавить букву",
@@ -2355,10 +2363,10 @@ const I18N = {
       shared: "Копия отправлена.",
       csvDownloaded: "CSV загружен.",
       eraseYearTitle: "Удалить данные за {year}",
-      eraseYearBody: "<p>Будут удалены все смены, (+) и итоги за <b>{year}</b>.</p><p>Цены за этот год сохранятся. Остальные годы не затрагиваются.</p><p class=\"warn\">Это действие нельзя отменить.</p>",
+      eraseYearBody: "<p>Будут удалены все смены, премии за месяц и итоги за <b>{year}</b>.</p><p>Цены за этот год сохранятся. Остальные годы не затрагиваются.</p><p class=\"warn\">Это действие нельзя отменить.</p>",
       yearDeleted: "Данные за {year} удалены.",
       eraseAllTitle: "Удалить все данные",
-      eraseAllBody: "<p>Будут удалены <b>все годы</b>, все смены и все (+).</p><p class=\"warn\">Это действие нельзя отменить.</p>",
+      eraseAllBody: "<p>Будут удалены <b>все годы</b>, все смены и все премии за месяц.</p><p class=\"warn\">Это действие нельзя отменить.</p>",
       finalTitle: "Окончательное подтверждение",
       finalBody: "<p>Введите <b>{word}</b>, чтобы подтвердить удаление всех данных.</p>",
       confirmWord: "УДАЛИТЬ",
@@ -2370,7 +2378,7 @@ const I18N = {
       help1: "1. Выберите месяц и нажмите на день.",
       help2: "2. Введите JND (X, XP, XMP…) или используйте кнопки X, S, M, Y, P.",
       help3: "3. База рассчитается сразу и сохранится автоматически.",
-      help4: "Поле (+) появляется только в янв., мар., мае, июле, сент. и нояб. Прибавляется один раз за месяц.",
+      help4: "Премия за месяц появляется только в янв., мар., мае, июле, сент. и нояб. Прибавляется один раз за месяц.",
       help5: "Накопления 15% — только для информации: считаются по нечётным месяцам и не вычитаются из итога.",
       help6: "Резервная копия: время от времени экспортируйте CSV. Если очистите данные браузера, CSV — ваша страховка.",
       openYearTitle: "Открыть другой год",
@@ -2503,7 +2511,7 @@ I18N.ky = {
             "annualTitle": "{year} жыл",
             "grandTotal": "Жалпы жыйынтык",
             "baseShifts": "Базалык төлөм",
-            "pluses": "Плюстар (+)",
+            "pluses": "Плюс (P)",
             "savings15": "Сактоо 15%",
             "monthlyTotals": "Айлык жыйынтыктар",
             "figuresIn": "Суммалар ₽ менен",
@@ -2534,18 +2542,19 @@ I18N.ky = {
             "deleteDataFor": "Маалыматты жок кылуу:",
             "deleteAll": "Бардык маалыматты жок кылуу",
             "howItWorks": "Кантип иштейт?",
-            "howItWorksText": "Айды жана күндү тандаңыз, JND киргизиңиз — база дароо эсептелет. (+) талаасы тек так айларда гана чыгат жана айына бир жолу кошулат.",
+            "howItWorksText": "Айды жана күндү тандаңыз, JND киргизиңиз — база дароо эсептелет. Айдын сыйлыгы талаасы тек так айларда гана чыгат жана айына бир жолу кошулат.",
             "seeHelp": "Тез жардамды көрүү",
             "cancel": "Жокко чыгаруу",
             "accept": "OK",
             "close": "Жабуу",
             "footnote": "Жалпы жыйынтык = 12 ай + 1-жарым жылдык бонус + 2-жарым жылдык бонус.<br>15% сактоо тек ЯНВ, МАР, МАЙ, ИЮЛ, СЕН жана НОЯ айларынан эсептелет.",
             "version": "My Salary · JND · Версия 1.0<br>Оффлайн иштейт · Маалыматтарыңыз ушул түзмөктө калат.",
-            "plusTitle": "Айлык плюс",
+            "plusTitle": "Айдын сыйлыгы",
+            "prizeShort": "Сыйлык",
             "plusCopy": "Айдын айлыгына бир жолу кошулат. Күн сайын эмес.",
-            "plusAria": "Кол менен киргизилген айлык плюс",
-            "noPlusTitle": "Бул айда (+) жок.",
-            "noPlusText": "Айлык күндүк базалардын суммасы гана.",
+            "plusAria": "Кол менен киргизилген айлык сыйлык",
+            "noPlusTitle": "Бул айда айлык сыйлык жок.",
+            "noPlusText": "Айлык база жана P плюстарынан турат.",
             "breakdownEmpty": "Эсептөөнү көрүү үчүн JND киргизиңиз.",
             "breakdownNote": "· + жана башка символдор эч нерсе кошпойт",
             "addLetter": "Тамга кошуу",
@@ -2579,10 +2588,10 @@ I18N.ky = {
             "shared": "Резервдик көчүрмө бөлүшүлдү.",
             "csvDownloaded": "CSV жүктөлдү.",
             "eraseYearTitle": "{year} жылынын маалыматын жок кылуу",
-            "eraseYearBody": "<p><b>{year}</b> жылынын бардык жумуш күндөрү, (+) жана жыйынтыктары жок кылынат.</p><p>Ошол жылдын баалары сакталат. Башка жылдарга тийилбейт.</p><p class=\"warn\">Бул аракетти кайтаруу мүмкүн эмес.</p>",
+            "eraseYearBody": "<p><b>{year}</b> жылынын бардык жумуш күндөрү, айлык сыйлыктар жана жыйынтыктары жок кылынат.</p><p>Ошол жылдын баалары сакталат. Башка жылдарга тийилбейт.</p><p class=\"warn\">Бул аракетти кайтаруу мүмкүн эмес.</p>",
             "yearDeleted": "{year} жылынын маалыматы жок кылынды.",
             "eraseAllTitle": "Бардык маалыматты жок кылуу",
-            "eraseAllBody": "<p>Бардык жылдар, бардык жумуш күндөрү жана бардык (+) жок кылынат.</p><p class=\"warn\">Бул аракетти кайтаруу мүмкүн эмес.</p>",
+            "eraseAllBody": "<p>Бардык жылдар, бардык жумуш күндөрү жана бардык айлык сыйлыктар жок кылынат.</p><p class=\"warn\">Бул аракетти кайтаруу мүмкүн эмес.</p>",
             "finalTitle": "Акыркы ырастоо",
             "finalBody": "<p>Баарын жок кылууну ырастоо үчүн <b>{word}</b> деп жазыңыз.</p>",
             "confirmWord": "ӨЧҮРҮҮ",
@@ -2594,7 +2603,7 @@ I18N.ky = {
             "help1": "1. Айды тандап, күндү басыңыз.",
             "help2": "2. JND киргизиңиз (X, XP, XMP…) же X, S, M, Y, P баскычтарын колдонуңуз.",
             "help3": "3. База дароо эсептелип, автоматтык түрдө сакталат.",
-            "help4": "(+) тек ЯНВ, МАР, МАЙ, ИЮЛ, СЕН жана НОЯ айларында чыгат. Ал айына бир жолу кошулат.",
+            "help4": "Айдын сыйлыгы тек ЯНВ, МАР, МАЙ, ИЮЛ, СЕН жана НОЯ айларында чыгат. Ал айына бир жолу кошулат.",
             "help5": "15% сактоо маалымат үчүн гана: ал тек ошол так айларды колдонуп, жалпы суммадан кармалбайт.",
             "help6": "Резервдик көчүрмө: ара-арасында CSV экспорттоп туруңуз. Браузердин маалыматын тазаласаңыз, CSV — сиздин коопсуз көчүрмөңүз.",
             "openYearTitle": "Башка жылды ачуу",
@@ -2726,7 +2735,7 @@ I18N.ro = {
             "annualTitle": "Anul {year}",
             "grandTotal": "Total general",
             "baseShifts": "Plata de bază",
-            "pluses": "Plusuri (+)",
+            "pluses": "Plus (P)",
             "savings15": "Economii 15%",
             "monthlyTotals": "Totaluri lunare",
             "figuresIn": "Sume în ₽",
@@ -2757,18 +2766,19 @@ I18N.ro = {
             "deleteDataFor": "Șterge datele pentru",
             "deleteAll": "Șterge toate datele",
             "howItWorks": "Cum funcționează?",
-            "howItWorksText": "Alege luna și ziua, introdu JND, iar baza se calculează instant. Câmpul (+) apare doar în lunile impare și se adaugă o dată pe lună.",
+            "howItWorksText": "Alege luna și ziua, introdu JND, iar baza se calculează instant. Câmpul Premiu lunar apare doar în lunile impare și se adaugă o dată pe lună.",
             "seeHelp": "Vezi ajutorul rapid",
             "cancel": "Anulează",
             "accept": "OK",
             "close": "Închide",
             "footnote": "Total general = cele 12 luni + bonus semestrul I + bonus semestrul II.<br>Economiile de 15% se calculează doar din IAN, MAR, MAI, IUL, SEP și NOI.",
             "version": "My Salary · JND · Versiunea 1.0<br>Funcționează offline · Datele tale rămân pe acest dispozitiv.",
-            "plusTitle": "Plus lunar",
+            "plusTitle": "Premiu lunar",
+            "prizeShort": "Premiu",
             "plusCopy": "Se adaugă o dată la salariul lunii. Nu pe zi.",
-            "plusAria": "Plus lunar manual",
-            "noPlusTitle": "Această lună nu are (+).",
-            "noPlusText": "Salariul este doar suma bazelor zilelor.",
+            "plusAria": "Premiu lunar manual",
+            "noPlusTitle": "Această lună nu are premiu lunar.",
+            "noPlusText": "Salariul este baza plus plusurile (P).",
             "breakdownEmpty": "Introdu un JND pentru a vedea calculul.",
             "breakdownNote": "· semnul + și alte simboluri nu adaugă nimic",
             "addLetter": "Adaugă literă",
@@ -2802,10 +2812,10 @@ I18N.ro = {
             "shared": "Copie de rezervă partajată.",
             "csvDownloaded": "CSV descărcat.",
             "eraseYearTitle": "Șterge datele pentru {year}",
-            "eraseYearBody": "<p>Toate turele, (+) și totalurile pentru <b>{year}</b> vor fi șterse.</p><p>Prețurile pentru acel an sunt păstrate. Alți ani nu sunt afectați.</p><p class=\"warn\">Această acțiune nu poate fi anulată.</p>",
+            "eraseYearBody": "<p>Toate turele, premiile lunare și totalurile pentru <b>{year}</b> vor fi șterse.</p><p>Prețurile pentru acel an sunt păstrate. Alți ani nu sunt afectați.</p><p class=\"warn\">Această acțiune nu poate fi anulată.</p>",
             "yearDeleted": "Datele pentru {year} au fost șterse.",
             "eraseAllTitle": "Șterge toate datele",
-            "eraseAllBody": "<p>Toți anii, toate turele și toate (+) vor fi șterse.</p><p class=\"warn\">Această acțiune nu poate fi anulată.</p>",
+            "eraseAllBody": "<p>Toți anii, toate turele și toate premiile lunare vor fi șterse.</p><p class=\"warn\">Această acțiune nu poate fi anulată.</p>",
             "finalTitle": "Confirmare finală",
             "finalBody": "<p>Introdu <b>{word}</b> pentru a confirma că vrei să ștergi tot.</p>",
             "confirmWord": "ȘTERGE",
@@ -2817,7 +2827,7 @@ I18N.ro = {
             "help1": "1. Alege luna și atinge o zi.",
             "help2": "2. Introdu JND (X, XP, XMP…) sau folosește butoanele X, S, M, Y, P.",
             "help3": "3. Baza se calculează instant și se salvează automat.",
-            "help4": "(+) apare doar în IAN, MAR, MAI, IUL, SEP și NOI. Se adaugă o dată pe lună.",
+            "help4": "Premiul lunar apare doar în IAN, MAR, MAI, IUL, SEP și NOI. Se adaugă o dată pe lună.",
             "help5": "Economiile de 15% sunt doar informative: folosesc doar acele luni impare și nu se scad din total.",
             "help6": "Copie de rezervă: exportă un CSV din când în când. Dacă ștergi datele browserului, CSV-ul este copia ta de siguranță.",
             "openYearTitle": "Deschide alt an",
@@ -3232,11 +3242,24 @@ function ensureYear(year){
 function baseOf(jnd, prices = currentYearData().prices){
   let total = 0;
   for (const char of normalizeJND(jnd)){
+    if (char === "P") continue;
     if (Object.prototype.hasOwnProperty.call(prices, char)){
       total += nonNeg(prices[char]);
     }
   }
   return total;
+}
+
+function pSumOf(jnd, prices = currentYearData().prices){
+  let total = 0;
+  for (const char of normalizeJND(jnd)){
+    if (char === "P") total += nonNeg(prices.P);
+  }
+  return total;
+}
+
+function totalOf(jnd, prices = currentYearData().prices){
+  return baseOf(jnd, prices) + pSumOf(jnd, prices);
 }
 
 function countsOf(jnd){
@@ -3250,21 +3273,24 @@ function countsOf(jnd){
 function monthStats(yearData, monthIndex){
   const month = yearData.months[monthIndex];
   let base = 0;
+  let pSum = 0;
   let worked = 0;
   for (const raw of month.days){
     if (String(raw).trim() !== ""){
       worked++;
       base += baseOf(raw, yearData.prices);
+      pSum += pSumOf(raw, yearData.prices);
     }
   }
   const plus = monthIndex % 2 === 0 ? nonNeg(month.plus) : 0;
-  return {base, plus, salary: base + plus, worked};
+  return {base, pSum, plus, salary: base + pSum + plus, worked};
 }
 
 function yearStats(yearData){
   const months = Array.from({length: 12}, (_, m) => monthStats(yearData, m));
   const totalBase = months.reduce((sum, m) => sum + m.base, 0);
-  const totalPlus = months.reduce((sum, m) => sum + m.plus, 0);
+  const totalPlus = months.reduce((sum, m) => sum + m.pSum, 0);
+  const totalPremium = months.reduce((sum, m) => sum + m.plus, 0);
   const totalSalary = months.reduce((sum, m) => sum + m.salary, 0);
   const totalDays = months.reduce((sum, m) => sum + m.worked, 0);
 
@@ -3278,7 +3304,7 @@ function yearStats(yearData){
   }, 0);
 
   return {
-    months, totalBase, totalPlus, totalSalary, totalDays,
+    months, totalBase, totalPlus, totalPremium, totalSalary, totalDays,
     p1days, p2days, premio1, premio2, ahorro,
     totalGeneral: totalSalary + premio1 + premio2
   };
@@ -3718,7 +3744,6 @@ function renderPlusSlot(){
   slot.innerHTML = `
     <div class="card plus-card">
       <div class="plus-copy">
-        <div class="plus-badge" aria-hidden="true">(+)</div>
         <div>
           <h3>${esc(t("plusTitle"))}</h3>
           <p>${esc(t("plusCopy"))}</p>
@@ -3749,7 +3774,7 @@ function updateMonthTotals(){
   const stats = monthStats(currentYearData(), ui.month);
   $("#mDays").textContent = stats.worked;
   $("#mBase").textContent = money(stats.base);
-  $("#mPlus").textContent = ui.month % 2 === 0 ? money(stats.plus) : "—";
+  $("#mPlus").textContent = money(stats.pSum);
   $("#mSalary").textContent = money(stats.salary);
   $$('#quickMonths .month-chip, #monthMonths .month-chip').forEach(chip => {
     if (Number(chip.dataset.month) === ui.month){
@@ -3790,8 +3815,7 @@ function renderMonth(){
   $("#monthTitle").textContent = `${MONTHS_LONG[ui.month]} ${state.activeYear}`;
   $("#mDays").textContent = stats.worked;
   $("#mBase").textContent = money(stats.base);
-  $("#mPlus").textContent = ui.month % 2 === 0 ? money(stats.plus) : "—";
-  $("#mPlusStat").classList.toggle("muted", ui.month % 2 === 1);
+  $("#mPlus").textContent = money(stats.pSum);
   $("#mSalary").textContent = money(stats.salary);
   $("#prevMonth").disabled = ui.month === 0;
   $("#nextMonth").disabled = ui.month === 11;
@@ -3815,15 +3839,17 @@ function renderAnnual(){
   $("#aDays").textContent = stats.totalDays;
   $("#aBase").textContent = money(stats.totalBase);
   $("#aPlus").textContent = money(stats.totalPlus);
+  $("#aPremium").textContent = money(stats.totalPremium);
   $("#aAhorro").textContent = money(stats.ahorro);
 
   $("#yearBody").innerHTML = stats.months.map((month, index) => {
-    const plus = index % 2 === 0 ? num(month.plus) : '<span class="dash">—</span>';
+    const premium = index % 2 === 0 ? num(month.plus) : '<span class="dash">—</span>';
     return `<tr class="${index % 2 === 0 ? "odd" : "even"}">
       <td>${MONTHS_SHORT[index]}</td>
       <td class="days">${month.worked}</td>
       <td>${num(month.base)}</td>
-      <td class="plus">${plus}</td>
+      <td class="plus">${num(month.pSum)}</td>
+      <td>${premium}</td>
       <td class="total">${num(month.salary)}</td>
     </tr>`;
   }).join("");
@@ -3833,6 +3859,7 @@ function renderAnnual(){
     <td class="days">${stats.totalDays}</td>
     <td>${num(stats.totalBase)}</td>
     <td class="plus">${num(stats.totalPlus)}</td>
+    <td>${num(stats.totalPremium)}</td>
     <td class="total">${num(stats.totalSalary)}</td>
   </tr>`;
 
@@ -3871,7 +3898,7 @@ function updatePriceExample(){
     return `${letter}${count > 1 ? "×" + count : ""} ${num(prices[letter] * count)}`;
   });
   $("#priceExample").innerHTML =
-    `<span class="example-code">XMPPPP</span> = ${parts.join(" + ")} = <b>${money(baseOf("XMPPPP", prices))}</b>`;
+    `<span class="example-code">XMPPPP</span> = ${parts.join(" + ")} = <b>${money(totalOf("XMPPPP", prices))}</b>`;
 }
 
 function renderPrices(){
