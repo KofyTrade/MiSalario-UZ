@@ -3730,45 +3730,7 @@ function renderQuick(){
    ============================================================ */
 function renderPlusSlot(){
   const slot = $("#plusSlot");
-  const yearData = currentYearData();
-  const stats = monthStats(yearData, ui.month);
-
-  if (ui.month % 2 === 1){
-    slot.innerHTML = `
-      <div class="note-card">
-        <span class="note-icon" aria-hidden="true">i</span>
-        <div><b>${esc(t("noPlusTitle"))}</b> ${esc(t("noPlusText"))}</div>
-      </div>`;
-    return;
-  }
-
-  slot.innerHTML = `
-    <div class="card plus-card">
-      <div class="plus-copy">
-        <div>
-          <h3>${esc(t("plusTitle"))}</h3>
-          <p>${esc(t("plusCopy"))}</p>
-        </div>
-      </div>
-      <label class="money-field">
-        <span>${currencySymbol()}</span>
-        <input type="number" id="plusInput" inputmode="numeric" min="0" step="100"
-               value="${stats.plus}" aria-label="${esc(t("plusAria"))}">
-      </label>
-    </div>`;
-
-  const input = $("#plusInput");
-  input.addEventListener("input", () => {
-    const value = input.value === "" ? 0 : Math.max(0, Math.round(Number(input.value) || 0));
-    currentYearData().months[ui.month].plus = value;
-    updateMonthTotals();
-    scheduleSave();
-  });
-  input.addEventListener("blur", () => {
-    input.value = currentYearData().months[ui.month].plus;
-    saveNow();
-    flashSaved();
-  });
+  if (slot) slot.innerHTML = "";
 }
 
 function updateMonthTotals(){
