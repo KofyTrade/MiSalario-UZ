@@ -1520,7 +1520,7 @@
 /* ============================================================
    Datos iniciales: año 2026 vacío
    ============================================================ */
-const SEED_2026 = {prices: {X: 7000, S: 5000, M: 3000, Y: 14000, P: 1500}, months: Array.from({length: 12}, () => ({days: Array(31).fill(""), plus: 0}))};
+const SEED_2026 = {prices: {X: 7000, S: 5000, M: 3000, Y: 14000, "+": 1500}, months: Array.from({length: 12}, () => ({days: Array(31).fill(""), plus: 0}))};
 
 /* ============================================================
    Constantes y estado
@@ -1616,7 +1616,7 @@ const I18N = {
       annualTitle: "Year {year}",
       grandTotal: "Grand total",
       baseShifts: "Base pay",
-      pluses: "Plus (P)",
+      pluses: "Plus (+)",
       savings15: "Savings 15%",
       monthlyTotals: "Monthly totals",
       figuresIn: "Amounts in ₽",
@@ -1635,7 +1635,7 @@ const I18N = {
       restore: "Reset",
       pricesNote: "Saved for this year only. Changing them recalculates every base in the year.",
       jndLetterByLetter: "The JND is read letter by letter.",
-      jndNote: "Each letter with a price adds its value; repeats count. The + sign and other symbols add nothing.",
+      jndNote: "Each sign with a price adds its value; repeats count. Other symbols add nothing.",
       changesSaved: "Changes are saved automatically on this device.",
       backup: "Backup",
       backupNote: "Export a CSV to keep a copy. If you change phones or clear your browser data, you can restore everything with “Import CSV”.",
@@ -1659,9 +1659,9 @@ const I18N = {
       plusCopy: "Added once to the month's salary. Not per day.",
       plusAria: "Manual monthly prize",
       noPlusTitle: "This month has no monthly prize.",
-      noPlusText: "The salary is the base plus the P pluses.",
+      noPlusText: "The salary is the base plus the + amounts.",
       breakdownEmpty: "Type a JND to see the calculation.",
-      breakdownNote: "· the + and other symbols add nothing",
+      breakdownNote: "· other symbols add nothing",
       addLetter: "Add letter",
       addLetterAria: "Add {letter}, price {price}",
       priceAria: "Price of {letter}",
@@ -1702,11 +1702,11 @@ const I18N = {
       confirmWord: "DELETE",
       allDeleted: "All data has been deleted.",
       restoreTitle: "Reset prices for {year}",
-      restoreBody: "<p>The original prices will be used: X {x}, S {s}, M {m}, Y {y}, P {p}.</p><p>Shifts are not deleted; only the bases are recalculated.</p>",
+      restoreBody: "<p>The original prices will be used: X {x}, S {s}, M {m}, Y {y}, + {p}.</p><p>Shifts are not deleted; only the bases are recalculated.</p>",
       restored: "Prices reset.",
       helpTitle: "Quick help",
       help1: "1. Choose the month and tap a day.",
-      help2: "2. Type the JND (X, XP, XMP…) or use the X, S, M, Y, P buttons.",
+      help2: "2. Type the JND (X, X+, XM+…) or use the X, S, M, Y, + buttons.",
       help3: "3. The base is calculated instantly and saved automatically.",
       help4: "The monthly prize only appears in JAN, MAR, MAY, JUL, SEP and NOV. It is added once per month.",
       help5: "The 15% savings is for information only: it uses only those odd months and is not subtracted from the total.",
@@ -1840,7 +1840,7 @@ const I18N = {
       annualTitle: "Año {year}",
       grandTotal: "Total general",
       baseShifts: "Base jornadas",
-      pluses: "Plus (P)",
+      pluses: "Plus (+)",
       savings15: "Ahorro 15%",
       monthlyTotals: "Totales por mes",
       figuresIn: "Cifras en ₽",
@@ -1859,7 +1859,7 @@ const I18N = {
       restore: "Restaurar",
       pricesNote: "Se guardan solo para este año. Al cambiarlos, todas las bases del año se recalculan.",
       jndLetterByLetter: "El JND se lee letra por letra.",
-      jndNote: "Cada letra con precio suma su valor; las repeticiones cuentan. El signo + y otros símbolos no suman.",
+      jndNote: "Cada signo con precio suma su valor; las repeticiones cuentan. Los demás símbolos no suman.",
       changesSaved: "Los cambios se guardan solos en este dispositivo.",
       backup: "Respaldo",
       backupNote: "Exporta un CSV para guardar una copia. Si cambias de móvil o borras los datos del navegador, podrás recuperarlo todo con “Importar CSV”.",
@@ -1883,9 +1883,9 @@ const I18N = {
       plusCopy: "Se suma una sola vez al salario del mes. No es por día.",
       plusAria: "Premio mensual manual",
       noPlusTitle: "Este mes no tiene premio mensual.",
-      noPlusText: "El salario es la base más los plus (P).",
+      noPlusText: "El salario es la base más los importes +.",
       breakdownEmpty: "Escribe un JND para ver el cálculo.",
-      breakdownNote: "· el + y otros símbolos no suman",
+      breakdownNote: "· los demás símbolos no suman",
       addLetter: "Agregar letra",
       addLetterAria: "Agregar {letter}, precio {price}",
       priceAria: "Precio de {letter}",
@@ -1926,11 +1926,11 @@ const I18N = {
       confirmWord: "BORRAR",
       allDeleted: "Todos los datos fueron borrados.",
       restoreTitle: "Restaurar precios de {year}",
-      restoreBody: "<p>Se usarán los precios originales: X {x}, S {s}, M {m}, Y {y}, P {p}.</p><p>Las jornadas no se borran; solo se recalculan las bases.</p>",
+      restoreBody: "<p>Se usarán los precios originales: X {x}, S {s}, M {m}, Y {y}, + {p}.</p><p>Las jornadas no se borran; solo se recalculan las bases.</p>",
       restored: "Precios restaurados.",
       helpTitle: "Ayuda rápida",
       help1: "1. Elige el mes y toca un día.",
-      help2: "2. Escribe el JND (X, XP, XMP…) o usa los botones X, S, M, Y, P.",
+      help2: "2. Escribe el JND (X, X+, XM+…) o usa los botones X, S, M, Y, +.",
       help3: "3. La base se calcula al instante. Se guarda sola.",
       help4: "El Premio del mes solo aparece en ENE, MAR, MAY, JUL, SEP y NOV. Se suma una vez al mes.",
       help5: "El ahorro 15% es informativo: se calcula solo con esos meses impares y no se resta del total.",
@@ -2063,7 +2063,7 @@ const I18N = {
       annualTitle: "{year}-yil",
       grandTotal: "Umumiy jami",
       baseShifts: "Smenalar bazasi",
-      pluses: "Qo‘shimcha (P)",
+      pluses: "Qo‘shimcha (+)",
       savings15: "Jamg‘arma 15%",
       monthlyTotals: "Oylik jami",
       figuresIn: "Summalar ₽da",
@@ -2082,7 +2082,7 @@ const I18N = {
       restore: "Tiklash",
       pricesNote: "Faqat shu yil uchun saqlanadi. O‘zgartirsangiz, yil bo‘yicha barcha bazalar qayta hisoblanadi.",
       jndLetterByLetter: "JND harflar bo‘yicha o‘qiladi.",
-      jndNote: "Narxi belgilangan har bir harf o‘z qiymatini qo‘shadi; takrorlar hisobga olinadi. + belgisi va boshqa belgilar hech narsa qo‘shmaydi.",
+      jndNote: "Narxi belgilangan har bir belgi o‘z qiymatini qo‘shadi; takrorlar hisobga olinadi. Boshqa belgilar hech narsa qo‘shmaydi.",
       changesSaved: "O‘zgarishlar shu qurilmada avtomatik saqlanadi.",
       backup: "Zaxira nusxa",
       backupNote: "Nusxa saqlash uchun CSV yuklab oling. Telefonni almashtirsangiz yoki brauzer ma’lumotlarini tozalasangiz, hammasini “CSV import” orqali tiklash mumkin.",
@@ -2106,9 +2106,9 @@ const I18N = {
       plusCopy: "Oy maoshiga bir marta qo‘shiladi. Har bir kun uchun emas.",
       plusAria: "Qo‘lda kiritilgan oylik mukofot",
       noPlusTitle: "Bu oyda oylik mukofot yo‘q.",
-      noPlusText: "Maosh baza va P qo‘shimchalaridan iborat.",
+      noPlusText: "Maosh baza va + summalaridan iborat.",
       breakdownEmpty: "Hisobni ko‘rish uchun JND kiriting.",
-      breakdownNote: "· + va boshqa belgilar hech narsa qo‘shmaydi",
+      breakdownNote: "· boshqa belgilar hech narsa qo‘shmaydi",
       addLetter: "Harf qo‘shish",
       addLetterAria: "{letter} qo‘shish, narxi {price}",
       priceAria: "{letter} narxi",
@@ -2149,11 +2149,11 @@ const I18N = {
       confirmWord: "OCHIRISH",
       allDeleted: "Barcha ma’lumotlar o‘chirildi.",
       restoreTitle: "{year}-yil narxlarini tiklash",
-      restoreBody: "<p>Asl narxlar ishlatiladi: X {x}, S {s}, M {m}, Y {y}, P {p}.</p><p>Smenalar o‘chirilmaydi; faqat bazalar qayta hisoblanadi.</p>",
+      restoreBody: "<p>Asl narxlar ishlatiladi: X {x}, S {s}, M {m}, Y {y}, + {p}.</p><p>Smenalar o‘chirilmaydi; faqat bazalar qayta hisoblanadi.</p>",
       restored: "Narxlar tiklandi.",
       helpTitle: "Tezkor yordam",
       help1: "1. Oy va kunni tanlang.",
-      help2: "2. JND kiriting (X, XP, XMP…) yoki X, S, M, Y, P tugmalaridan foydalaning.",
+      help2: "2. JND kiriting (X, X+, XM+…) yoki X, S, M, Y, + tugmalaridan foydalaning.",
       help3: "3. Baza darhol hisoblanadi va avtomatik saqlanadi.",
       help4: "Oylik mukofot faqat YAN, MAR, MAY, IYUL, SEN va NOY oylarida chiqadi. Oyiga bir marta qo‘shiladi.",
       help5: "15% jamg‘arma faqat ma’lumot uchun: toq oylar bo‘yicha hisoblanadi va jamidan ayirilmaydi.",
@@ -2287,7 +2287,7 @@ const I18N = {
       annualTitle: "{year} год",
       grandTotal: "Общий итог",
       baseShifts: "База смен",
-      pluses: "Плюс (P)",
+      pluses: "Плюс (+)",
       savings15: "Накопления 15%",
       monthlyTotals: "Итоги по месяцам",
       figuresIn: "Суммы в ₽",
@@ -2306,7 +2306,7 @@ const I18N = {
       restore: "Сбросить",
       pricesNote: "Сохраняются только для этого года. При изменении пересчитываются все базы за год.",
       jndLetterByLetter: "JND читается по буквам.",
-      jndNote: "Каждая буква с ценой добавляет свою стоимость; повторы учитываются. Знак + и другие символы ничего не добавляют.",
+      jndNote: "Каждый знак с ценой добавляет свою стоимость; повторы учитываются. Остальные символы ничего не добавляют.",
       changesSaved: "Изменения сохраняются на этом устройстве автоматически.",
       backup: "Резервная копия",
       backupNote: "Экспортируйте CSV, чтобы сохранить копию. Если вы смените телефон или очистите данные браузера, всё можно восстановить через «Импорт CSV».",
@@ -2330,9 +2330,9 @@ const I18N = {
       plusCopy: "Прибавляется к зарплате за месяц один раз. Не за день.",
       plusAria: "Премия за месяц (вручную)",
       noPlusTitle: "В этом месяце нет премии.",
-      noPlusText: "Зарплата — это база плюс плюсы (P).",
+      noPlusText: "Зарплата — это база плюс суммы +.",
       breakdownEmpty: "Введите JND, чтобы увидеть расчёт.",
-      breakdownNote: "· знак + и другие символы ничего не добавляют",
+      breakdownNote: "· остальные символы ничего не добавляют",
       addLetter: "Добавить букву",
       addLetterAria: "Добавить {letter}, цена {price}",
       priceAria: "Цена буквы {letter}",
@@ -2373,11 +2373,11 @@ const I18N = {
       confirmWord: "УДАЛИТЬ",
       allDeleted: "Все данные удалены.",
       restoreTitle: "Сбросить цены за {year}",
-      restoreBody: "<p>Будут использованы исходные цены: X {x}, S {s}, M {m}, Y {y}, P {p}.</p><p>Смены не удаляются; базы будут пересчитаны.</p>",
+      restoreBody: "<p>Будут использованы исходные цены: X {x}, S {s}, M {m}, Y {y}, + {p}.</p><p>Смены не удаляются; базы будут пересчитаны.</p>",
       restored: "Цены сброшены.",
       helpTitle: "Быстрая помощь",
       help1: "1. Выберите месяц и нажмите на день.",
-      help2: "2. Введите JND (X, XP, XMP…) или используйте кнопки X, S, M, Y, P.",
+      help2: "2. Введите JND (X, X+, XM+…) или используйте кнопки X, S, M, Y, +.",
       help3: "3. База рассчитается сразу и сохранится автоматически.",
       help4: "Премия за месяц появляется только в янв., мар., мае, июле, сент. и нояб. Прибавляется один раз за месяц.",
       help5: "Накопления 15% — только для информации: считаются по нечётным месяцам и не вычитаются из итога.",
@@ -2512,7 +2512,7 @@ I18N.ky = {
             "annualTitle": "{year} жыл",
             "grandTotal": "Жалпы жыйынтык",
             "baseShifts": "Базалык төлөм",
-            "pluses": "Плюс (P)",
+            "pluses": "Плюс (+)",
             "savings15": "Сактоо 15%",
             "monthlyTotals": "Айлык жыйынтыктар",
             "figuresIn": "Суммалар ₽ менен",
@@ -2531,7 +2531,7 @@ I18N.ky = {
             "restore": "Кайтаруу",
             "pricesNote": "Тек ушул жыл үчүн сакталат. Аларды өзгөртүү жыл ичиндеги бардык базаларды кайра эсептейт.",
             "jndLetterByLetter": "JND тамга-тамга боюнча окулат.",
-            "jndNote": "Баасы бар ар бир тамга өз маанисин кошот; кайталануулар эсептелет. + белгиси жана башка символдор эч нерсе кошпойт.",
+            "jndNote": "Баасы бар ар бир белги өз маанисин кошот; кайталануулар эсептелет. Башка символдор эч нерсе кошпойт.",
             "changesSaved": "Өзгөртүүлөр ушул түзмөктө автоматтык түрдө сакталат.",
             "backup": "Резервдик көчүрмө",
             "backupNote": "Көчүрмө сактоо үчүн CSV экспорттоңуз. Телефонду алмаштырсаңыз же браузердин маалыматын тазаласаңыз, “CSV импорттоо” менен баарын кайтара аласыз.",
@@ -2555,9 +2555,9 @@ I18N.ky = {
             "plusCopy": "Айдын айлыгына бир жолу кошулат. Күн сайын эмес.",
             "plusAria": "Кол менен киргизилген айлык сыйлык",
             "noPlusTitle": "Бул айда айлык сыйлык жок.",
-            "noPlusText": "Айлык база жана P плюстарынан турат.",
+            "noPlusText": "Айлык база жана + суммаларынан турат.",
             "breakdownEmpty": "Эсептөөнү көрүү үчүн JND киргизиңиз.",
-            "breakdownNote": "· + жана башка символдор эч нерсе кошпойт",
+            "breakdownNote": "· башка символдор эч нерсе кошпойт",
             "addLetter": "Тамга кошуу",
             "addLetterAria": "{letter} кошуу, баасы {price}",
             "priceAria": "{letter} баасы",
@@ -2598,11 +2598,11 @@ I18N.ky = {
             "confirmWord": "ӨЧҮРҮҮ",
             "allDeleted": "Бардык маалымат жок кылынды.",
             "restoreTitle": "{year} жылынын бааларын кайтаруу",
-            "restoreBody": "<p>Баштапкы баалар колдонулат: X {x}, S {s}, M {m}, Y {y}, P {p}.</p><p>Жумуш күндөрү жок кылынбайт; тек базалар кайра эсептелет.</p>",
+            "restoreBody": "<p>Баштапкы баалар колдонулат: X {x}, S {s}, M {m}, Y {y}, + {p}.</p><p>Жумуш күндөрү жок кылынбайт; тек базалар кайра эсептелет.</p>",
             "restored": "Баалар кайтарылды.",
             "helpTitle": "Тез жардам",
             "help1": "1. Айды тандап, күндү басыңыз.",
-            "help2": "2. JND киргизиңиз (X, XP, XMP…) же X, S, M, Y, P баскычтарын колдонуңуз.",
+            "help2": "2. JND киргизиңиз (X, X+, XM+…) же X, S, M, Y, + баскычтарын колдонуңуз.",
             "help3": "3. База дароо эсептелип, автоматтык түрдө сакталат.",
             "help4": "Айдын сыйлыгы тек ЯНВ, МАР, МАЙ, ИЮЛ, СЕН жана НОЯ айларында чыгат. Ал айына бир жолу кошулат.",
             "help5": "15% сактоо маалымат үчүн гана: ал тек ошол так айларды колдонуп, жалпы суммадан кармалбайт.",
@@ -2736,7 +2736,7 @@ I18N.ro = {
             "annualTitle": "Anul {year}",
             "grandTotal": "Total general",
             "baseShifts": "Plata de bază",
-            "pluses": "Plus (P)",
+            "pluses": "Plus (+)",
             "savings15": "Economii 15%",
             "monthlyTotals": "Totaluri lunare",
             "figuresIn": "Sume în ₽",
@@ -2755,7 +2755,7 @@ I18N.ro = {
             "restore": "Resetează",
             "pricesNote": "Salvate doar pentru acest an. Modificarea lor recalculează toate bazele din an.",
             "jndLetterByLetter": "JND se citește literă cu literă.",
-            "jndNote": "Fiecare literă cu preț își adaugă valoarea; repetările contează. Semnul + și alte simboluri nu adaugă nimic.",
+            "jndNote": "Fiecare semn cu preț își adaugă valoarea; repetările contează. Alte simboluri nu adaugă nimic.",
             "changesSaved": "Modificările se salvează automat pe acest dispozitiv.",
             "backup": "Copie de rezervă",
             "backupNote": "Exportă un CSV pentru a păstra o copie. Dacă schimbi telefonul sau ștergi datele browserului, poți restabili totul cu „Import CSV”.",
@@ -2779,9 +2779,9 @@ I18N.ro = {
             "plusCopy": "Se adaugă o dată la salariul lunii. Nu pe zi.",
             "plusAria": "Premiu lunar manual",
             "noPlusTitle": "Această lună nu are premiu lunar.",
-            "noPlusText": "Salariul este baza plus plusurile (P).",
+            "noPlusText": "Salariul este baza plus sumele +.",
             "breakdownEmpty": "Introdu un JND pentru a vedea calculul.",
-            "breakdownNote": "· semnul + și alte simboluri nu adaugă nimic",
+            "breakdownNote": "· alte simboluri nu adaugă nimic",
             "addLetter": "Adaugă literă",
             "addLetterAria": "Adaugă {letter}, preț {price}",
             "priceAria": "Prețul pentru {letter}",
@@ -2822,11 +2822,11 @@ I18N.ro = {
             "confirmWord": "ȘTERGE",
             "allDeleted": "Toate datele au fost șterse.",
             "restoreTitle": "Resetează prețurile pentru {year}",
-            "restoreBody": "<p>Vor fi folosite prețurile originale: X {x}, S {s}, M {m}, Y {y}, P {p}.</p><p>Turele nu sunt șterse; doar bazele sunt recalculate.</p>",
+            "restoreBody": "<p>Vor fi folosite prețurile originale: X {x}, S {s}, M {m}, Y {y}, + {p}.</p><p>Turele nu sunt șterse; doar bazele sunt recalculate.</p>",
             "restored": "Prețuri resetate.",
             "helpTitle": "Ajutor rapid",
             "help1": "1. Alege luna și atinge o zi.",
-            "help2": "2. Introdu JND (X, XP, XMP…) sau folosește butoanele X, S, M, Y, P.",
+            "help2": "2. Introdu JND (X, X+, XM+…) sau folosește butoanele X, S, M, Y, +.",
             "help3": "3. Baza se calculează instant și se salvează automat.",
             "help4": "Premiul lunar apare doar în IAN, MAR, MAI, IUL, SEP și NOI. Se adaugă o dată pe lună.",
             "help5": "Economiile de 15% sunt doar informative: folosesc doar acele luni impare și nu se scad din total.",
@@ -2954,8 +2954,8 @@ function applyStaticTranslations(){
   $$("[data-i18n-ph]").forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
 }
 
-const LETTERS = ["X","S","M","Y","P","G","Z","E","F","T"];
-const DEFAULT_PRICES = {X:7000, S:5000, M:3000, Y:14000, P:1500, G:0, Z:0, E:0, F:0, T:0};
+const LETTERS = ["X","S","M","Y","+","G","Z","E","F","T"];
+const DEFAULT_PRICES = {X:7000, S:5000, M:3000, Y:14000, "+":1500, G:0, Z:0, E:0, F:0, T:0};
 const PREMIUM_PER_DAY = 1500;
 const DEFAULT_OFFICIAL_SALARY = 60000;
 const STORAGE_KEY = "mi-salario-jnd-uz-v1";
@@ -3019,12 +3019,17 @@ function parseAmount(value){
 }
 
 function normalizeJND(value){
-  return String(value ?? "").toUpperCase().replace(/\s+/g, "").slice(0, 40);
+  return String(value ?? "").toUpperCase().replace(/P/g, "+").replace(/\s+/g, "").slice(0, 40);
 }
 
 function clonePrices(prices){
   const out = {};
-  for (const letter of LETTERS) out[letter] = nonNeg(prices && prices[letter], DEFAULT_PRICES[letter]);
+  for (const letter of LETTERS){
+    const raw = prices
+      ? (prices[letter] !== undefined ? prices[letter] : (letter === "+" ? prices.P : undefined))
+      : undefined;
+    out[letter] = nonNeg(raw, DEFAULT_PRICES[letter]);
+  }
   return out;
 }
 
@@ -3243,7 +3248,7 @@ function ensureYear(year){
 function baseOf(jnd, prices = currentYearData().prices){
   let total = 0;
   for (const char of normalizeJND(jnd)){
-    if (char === "P") continue;
+    if (char === "+") continue;
     if (Object.prototype.hasOwnProperty.call(prices, char)){
       total += nonNeg(prices[char]);
     }
@@ -3254,7 +3259,7 @@ function baseOf(jnd, prices = currentYearData().prices){
 function pSumOf(jnd, prices = currentYearData().prices){
   let total = 0;
   for (const char of normalizeJND(jnd)){
-    if (char === "P") total += nonNeg(prices.P);
+    if (char === "+") total += nonNeg(prices["+"]);
   }
   return total;
 }
@@ -3857,13 +3862,13 @@ function renderAnnual(){
    ============================================================ */
 function updatePriceExample(){
   const prices = currentYearData().prices;
-  const counts = countsOf("XMPPPP");
+  const counts = countsOf("XM++++");
   const parts = LETTERS.filter(letter => counts[letter]).map(letter => {
     const count = counts[letter];
     return `${letter}${count > 1 ? "×" + count : ""} ${num(prices[letter] * count)}`;
   });
   $("#priceExample").innerHTML =
-    `<span class="example-code">XMPPPP</span> = ${parts.join(" + ")} = <b>${money(totalOf("XMPPPP", prices))}</b>`;
+    `<span class="example-code">XM++++</span> = ${parts.join(" + ")} = <b>${money(totalOf("XM++++", prices))}</b>`;
 }
 
 function renderPrices(){
@@ -4516,7 +4521,7 @@ function csvCell(value){
 }
 
 function buildCSV(){
-  const rows = [["anio","mes","dia","jnd","plus_mes","precio_x","precio_s","precio_m","precio_y","precio_p","base","tipo","nota","importe","pagada","pago","auto","extra","precio_g","precio_z","precio_e","precio_f","precio_t"]];
+  const rows = [["anio","mes","dia","jnd","plus_mes","precio_x","precio_s","precio_m","precio_y","precio_plus","base","tipo","nota","importe","pagada","pago","auto","extra","precio_g","precio_z","precio_e","precio_f","precio_t"]];
   const years = Object.keys(state.years).map(Number).sort((a, b) => a - b);
 
   for (const yearNumber of years){
@@ -4525,11 +4530,11 @@ function buildCSV(){
     for (let month = 0; month < 12; month++){
       const stats = monthStats(yearData, month);
       const plus = month % 2 === 0 ? stats.plus : 0;
-      rows.push([yearNumber, month + 1, 0, "", plus, prices.X, prices.S, prices.M, prices.Y, prices.P, stats.base, "", "", "", "", "", "", "", prices.G, prices.Z, prices.E, prices.F, prices.T]);
+      rows.push([yearNumber, month + 1, 0, "", plus, prices.X, prices.S, prices.M, prices.Y, prices["+"], stats.base, "", "", "", "", "", "", "", prices.G, prices.Z, prices.E, prices.F, prices.T]);
       for (let day = 1; day <= 31; day++){
         const jnd = normalizeJND(yearData.months[month].days[day - 1]);
         if (!jnd) continue;
-        rows.push([yearNumber, month + 1, day, jnd, plus, prices.X, prices.S, prices.M, prices.Y, prices.P, baseOf(jnd, prices), "", "", "", "", "", "", "", prices.G, prices.Z, prices.E, prices.F, prices.T]);
+        rows.push([yearNumber, month + 1, day, jnd, plus, prices.X, prices.S, prices.M, prices.Y, prices["+"], baseOf(jnd, prices), "", "", "", "", "", "", "", prices.G, prices.Z, prices.E, prices.F, prices.T]);
       }
     }
   }
@@ -4537,7 +4542,7 @@ function buildCSV(){
     const prices = (state.years[String(debt.year)] || {prices: DEFAULT_PRICES}).prices;
     rows.push([
       debt.year, debt.month, 0, "", 0,
-      prices.X, prices.S, prices.M, prices.Y, prices.P, 0,
+      prices.X, prices.S, prices.M, prices.Y, prices["+"], 0,
       "deuda", debt.note || "", debt.amount, debt.paid ? 1 : 0, debt.paidAmount || 0,
       debt.auto ? 1 : 0, debt.extraPaid || 0,
       prices.G, prices.Z, prices.E, prices.F, prices.T
@@ -4546,7 +4551,7 @@ function buildCSV(){
   const salaryPrices = currentYearData().prices;
   rows.push([
     state.activeYear, 1, 0, "", 0,
-    salaryPrices.X, salaryPrices.S, salaryPrices.M, salaryPrices.Y, salaryPrices.P, 0,
+    salaryPrices.X, salaryPrices.S, salaryPrices.M, salaryPrices.Y, salaryPrices["+"], 0,
     "salario", "", officialSalary(), "", "", "", "", "", "", "", "", ""
   ]);
   for (const job of allExtra()){
@@ -4554,7 +4559,7 @@ function buildCSV(){
     const note = [job.client, job.concept].filter(Boolean).join(" · ").slice(0, 80);
     rows.push([
       job.year, job.month, job.day, "", 0,
-      prices.X, prices.S, prices.M, prices.Y, prices.P, 0,
+      prices.X, prices.S, prices.M, prices.Y, prices["+"], 0,
       "extra", note, job.amount, job.collected ? 1 : 0, "", "", "", "", "", "", ""
     ]);
   }
@@ -4667,7 +4672,7 @@ function parseImport(text){
     S: find("precio_s","ps"),
     M: find("precio_m","pm"),
     Y: find("precio_y","py"),
-    P: find("precio_p","pp"),
+    "+": find("precio_plus","precio_p","pp"),
     G: find("precio_g","pg"),
     Z: find("precio_z","pz"),
     E: find("precio_e","pe"),
@@ -4969,7 +4974,7 @@ async function resetPrices(){
       s: money(DEFAULT_PRICES.S),
       m: money(DEFAULT_PRICES.M),
       y: money(DEFAULT_PRICES.Y),
-      p: money(DEFAULT_PRICES.P)
+      p: money(DEFAULT_PRICES["+"])
     }),
     t("restore"),
     false
