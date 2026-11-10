@@ -937,7 +937,7 @@
     *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
   }
   @media (min-width:720px){
-    .annual-stats{grid-template-columns:repeat(5,1fr)}
+    .month-stats,.annual-stats{grid-template-columns:repeat(5,1fr)}
   }
 
   /* ---------- Dark mode: dark gray, not black ---------- */
@@ -1162,10 +1162,11 @@
 
     <div class="month-strip" id="monthMonths" aria-label="Elegir mes"></div>
 
-    <div class="stats-grid">
+    <div class="stats-grid month-stats">
       <div class="stat"><span data-i18n="daysWorked">Días trabajados</span><strong id="mDays">0</strong></div>
       <div class="stat"><span data-i18n="base">Base</span><strong id="mBase">$ 0</strong></div>
       <div class="stat accent" id="mPlusStat"><span data-i18n="pluses">Plus (P)</span><strong id="mPlus">—</strong></div>
+      <div class="stat"><span data-i18n="prizeShort">Premio</span><strong id="mPremium">—</strong></div>
       <div class="stat total"><span data-i18n="monthSalary">Salario del mes</span><strong id="mSalary">$ 0</strong></div>
     </div>
 
@@ -3775,6 +3776,7 @@ function updateMonthTotals(){
   $("#mDays").textContent = stats.worked;
   $("#mBase").textContent = money(stats.base);
   $("#mPlus").textContent = money(stats.pSum);
+  $("#mPremium").textContent = ui.month % 2 === 0 ? money(stats.plus) : "—";
   $("#mSalary").textContent = money(stats.salary);
   $$('#quickMonths .month-chip, #monthMonths .month-chip').forEach(chip => {
     if (Number(chip.dataset.month) === ui.month){
@@ -3816,6 +3818,7 @@ function renderMonth(){
   $("#mDays").textContent = stats.worked;
   $("#mBase").textContent = money(stats.base);
   $("#mPlus").textContent = money(stats.pSum);
+  $("#mPremium").textContent = ui.month % 2 === 0 ? money(stats.plus) : "—";
   $("#mSalary").textContent = money(stats.salary);
   $("#prevMonth").disabled = ui.month === 0;
   $("#nextMonth").disabled = ui.month === 11;
