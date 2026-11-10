@@ -3300,8 +3300,8 @@ function yearStats(yearData){
   const totalSalary = months.reduce((sum, m) => sum + m.salary, 0);
   const totalDays = months.reduce((sum, m) => sum + m.worked, 0);
 
-  const p1days = months[0].worked + months[1].worked + months[2].worked;
-  const p2days = months[6].worked + months[7].worked + months[8].worked;
+  const p1days = months[1].worked + months[3].worked + months[5].worked;
+  const p2days = months[7].worked + months[9].worked + months[11].worked;
   const premio1 = p1days * PREMIUM_PER_DAY;
   const premio2 = p2days * PREMIUM_PER_DAY;
 
@@ -3836,13 +3836,13 @@ function renderAnnual(){
   $("#prize1").textContent = money(stats.premio1);
   $("#prize1Detail").textContent = t("prizeDetail", {
     days: daysText(stats.p1days),
-    months: [MONTHS_SHORT[0], MONTHS_SHORT[1], MONTHS_SHORT[2]].join(" + "),
+    months: [MONTHS_SHORT[1], MONTHS_SHORT[3], MONTHS_SHORT[5]].join(" + "),
     money: money(PREMIUM_PER_DAY)
   });
   $("#prize2").textContent = money(stats.premio2);
   $("#prize2Detail").textContent = t("prizeDetail", {
     days: daysText(stats.p2days),
-    months: [MONTHS_SHORT[6], MONTHS_SHORT[7], MONTHS_SHORT[8]].join(" + "),
+    months: [MONTHS_SHORT[7], MONTHS_SHORT[9], MONTHS_SHORT[11]].join(" + "),
     money: money(PREMIUM_PER_DAY)
   });
 
