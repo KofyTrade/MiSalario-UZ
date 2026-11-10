@@ -1014,6 +1014,11 @@
   html[data-theme="dark"] .day-btn.filled{background:var(--brand-soft);border-color:#3d6a60;color:var(--brand)}
   html[data-theme="dark"] .day-btn.out{color:#7f8a82}
   html[data-theme="dark"] .day-btn.out:not(.filled){background:#292f2b;border-color:#3a423c}
+  html[data-theme="dark"] .day-btn.selected,
+  html[data-theme="dark"] .day-btn.out.selected{
+    background-color:var(--brand);border-color:var(--brand);color:#fff;
+    box-shadow:0 0 0 3px rgba(74,168,153,.25);
+  }
   html[data-theme="dark"] .month-table tr.today{background:#3a3323}
   html[data-theme="dark"] .month-table th,
   html[data-theme="dark"] .month-table td{border-color:var(--line-2)}
