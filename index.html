@@ -3288,15 +3288,15 @@ function monthStats(yearData, monthIndex){
       pSum += pSumOf(raw, yearData.prices);
     }
   }
-  const plus = monthIndex % 2 === 0 ? nonNeg(month.plus) : 0;
-  return {base, pSum, plus, salary: base + pSum + plus, worked};
+  const premium = monthIndex % 2 === 0 ? worked * PREMIUM_PER_DAY : 0;
+  return {base, pSum, premium, salary: base + pSum + premium, worked};
 }
 
 function yearStats(yearData){
   const months = Array.from({length: 12}, (_, m) => monthStats(yearData, m));
   const totalBase = months.reduce((sum, m) => sum + m.base, 0);
   const totalPlus = months.reduce((sum, m) => sum + m.pSum, 0);
-  const totalPremium = months.reduce((sum, m) => sum + m.plus, 0);
+  const totalPremium = months.reduce((sum, m) => sum + m.premium, 0);
   const totalSalary = months.reduce((sum, m) => sum + m.salary, 0);
   const totalDays = months.reduce((sum, m) => sum + m.worked, 0);
 
@@ -3743,7 +3743,7 @@ function updateMonthTotals(){
   $("#mDays").textContent = stats.worked;
   $("#mBase").textContent = money(stats.base);
   $("#mPlus").textContent = money(stats.pSum);
-  $("#mPremium").textContent = ui.month % 2 === 0 ? money(stats.plus) : "—";
+  $("#mPremium").textContent = ui.month % 2 === 0 ? money(stats.premium) : "—";
   $("#mSalary").textContent = money(stats.salary);
   $$('#quickMonths .month-chip, #monthMonths .month-chip').forEach(chip => {
     if (Number(chip.dataset.month) === ui.month){
@@ -3785,7 +3785,7 @@ function renderMonth(){
   $("#mDays").textContent = stats.worked;
   $("#mBase").textContent = money(stats.base);
   $("#mPlus").textContent = money(stats.pSum);
-  $("#mPremium").textContent = ui.month % 2 === 0 ? money(stats.plus) : "—";
+  $("#mPremium").textContent = ui.month % 2 === 0 ? money(stats.premium) : "—";
   $("#mSalary").textContent = money(stats.salary);
   $("#prevMonth").disabled = ui.month === 0;
   $("#nextMonth").disabled = ui.month === 11;
@@ -3813,7 +3813,7 @@ function renderAnnual(){
   $("#aAhorro").textContent = money(stats.ahorro);
 
   $("#yearBody").innerHTML = stats.months.map((month, index) => {
-    const premium = index % 2 === 0 ? num(month.plus) : '<span class="dash">—</span>';
+    const premium = index % 2 === 0 ? num(month.premium) : '<span class="dash">—</span>';
     return `<tr class="${index % 2 === 0 ? "odd" : "even"}">
       <td>${MONTHS_SHORT[index]}</td>
       <td class="days">${month.worked}</td>
@@ -3919,7 +3919,7 @@ function monthHasData(year, month){
   const yd = state.years[String(year)];
   if (!yd) return false;
   const st = monthStats(yd, month - 1);
-  return st.worked > 0 || st.plus > 0;
+  return st.worked > 0;
 }
 
 function syncAutoDebts(){
@@ -4012,7 +4012,7 @@ function debtSuggestion(year, month){
   if (!yd) return {salary: 0, days: 0, has: false, short: 0, surplus: 0, fixed: officialSalary()};
   const st = monthStats(yd, month - 1);
   const fixed = officialSalary();
-  const has = st.worked > 0 || st.plus > 0;
+  const has = st.worked > 0;
   return {
     salary: st.salary,
     days: st.worked,
@@ -4529,7 +4529,7 @@ function buildCSV(){
     const prices = yearData.prices;
     for (let month = 0; month < 12; month++){
       const stats = monthStats(yearData, month);
-      const plus = month % 2 === 0 ? stats.plus : 0;
+      const plus = month % 2 === 0 ? stats.premium : 0;
       rows.push([yearNumber, month + 1, 0, "", plus, prices.X, prices.S, prices.M, prices.Y, prices["+"], stats.base, "", "", "", "", "", "", "", prices.G, prices.Z, prices.E, prices.F, prices.T]);
       for (let day = 1; day <= 31; day++){
         const jnd = normalizeJND(yearData.months[month].days[day - 1]);
