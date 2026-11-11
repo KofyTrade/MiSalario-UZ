@@ -1206,7 +1206,7 @@
         </div>
 
         <label class="sr-only" for="jndInput" data-i18n="jndDayLabel">Código JND del día</label>
-        <input class="jnd-input" id="jndInput" type="text" placeholder="X, X+, XM+…"
+        <input class="jnd-input" id="jndInput" type="text" placeholder="C, C+, CM+…"
                inputmode="text" autocapitalize="characters" autocomplete="off"
                autocorrect="off" spellcheck="false" maxlength="40" enterkeyhint="done">
 
@@ -1518,9 +1518,9 @@
         <p class="hint" data-i18n="premiumPricesNote">Valor del premio para cada tipo de jornada.</p>
         <div class="premium-price-grid" id="premiumPrices">
           <label class="premium-price-row">
-            <span class="letter-badge" aria-hidden="true">X</span>
+            <span class="letter-badge" aria-hidden="true">C</span>
             <span class="premium-price-name" data-i18n="premiumX">Jornada entera</span>
-            <span class="money-field"><span>₽</span><input type="number" data-premium="X" inputmode="numeric" min="0" step="100" value="1000" aria-label="Premio X"></span>
+            <span class="money-field"><span>₽</span><input type="number" data-premium="X" inputmode="numeric" min="0" step="100" value="1000" aria-label="Premio C"></span>
           </label>
           <label class="premium-price-row">
             <span class="letter-badge" aria-hidden="true">S</span>
@@ -1537,7 +1537,7 @@
 
       <div class="price-note">
         <span aria-hidden="true">i</span>
-        <div><b data-i18n="jndLetterByLetter">El JND se lee letra por letra.</b> <span data-i18n="jndNote">Cada X, S, M, Y o P suma su precio; las repeticiones cuentan. El signo + y otros símbolos no suman.</span></div>
+        <div><b data-i18n="jndLetterByLetter">El JND se lee letra por letra.</b> <span data-i18n="jndNote">Cada C, S, M, Y o P suma su precio; las repeticiones cuentan. El signo + y otros símbolos no suman.</span></div>
       </div>
       <div class="example" id="priceExample"></div>
       <p class="hint" style="margin:9px 2px 0" data-i18n="changesSaved">Los cambios se guardan solos en este dispositivo.</p>
@@ -1851,11 +1851,11 @@ const I18N = {
       confirmWord: "DELETE",
       allDeleted: "All data has been deleted.",
       restoreTitle: "Reset prices for {year}",
-      restoreBody: "<p>The original prices will be used: X {x}, S {s}, M {m}, Y {y}, + {p}.</p><p>Shifts are not deleted; only the bases are recalculated.</p>",
+      restoreBody: "<p>The original prices will be used: C {x}, S {s}, M {m}, Y {y}, + {p}.</p><p>Shifts are not deleted; only the bases are recalculated.</p>",
       restored: "Prices reset.",
       helpTitle: "Quick help",
       help1: "1. Choose the month and tap a day.",
-      help2: "2. Type the JND (X, X+, XM+…) or use the X, S, M, Y, + buttons.",
+      help2: "2. Type the JND (C, C+, CM+…) or use the C, S, M, Y, + buttons.",
       help3: "3. The base is calculated instantly and saved automatically.",
       help4: "The monthly prize only appears in JAN, MAR, MAY, JUL, SEP and NOV. It is added once per month.",
       help5: "The 15% savings is for information only: it uses only those odd months and is not subtracted from the total.",
@@ -2082,11 +2082,11 @@ const I18N = {
       confirmWord: "BORRAR",
       allDeleted: "Todos los datos fueron borrados.",
       restoreTitle: "Restaurar precios de {year}",
-      restoreBody: "<p>Se usarán los precios originales: X {x}, S {s}, M {m}, Y {y}, + {p}.</p><p>Las jornadas no se borran; solo se recalculan las bases.</p>",
+      restoreBody: "<p>Se usarán los precios originales: C {x}, S {s}, M {m}, Y {y}, + {p}.</p><p>Las jornadas no se borran; solo se recalculan las bases.</p>",
       restored: "Precios restaurados.",
       helpTitle: "Ayuda rápida",
       help1: "1. Elige el mes y toca un día.",
-      help2: "2. Escribe el JND (X, X+, XM+…) o usa los botones X, S, M, Y, +.",
+      help2: "2. Escribe el JND (C, C+, CM+…) o usa los botones C, S, M, Y, +.",
       help3: "3. La base se calcula al instante. Se guarda sola.",
       help4: "El Premio del mes solo aparece en ENE, MAR, MAY, JUL, SEP y NOV. Se suma una vez al mes.",
       help5: "El ahorro 15% es informativo: se calcula solo con esos meses impares y no se resta del total.",
@@ -2312,11 +2312,11 @@ const I18N = {
       confirmWord: "OCHIRISH",
       allDeleted: "Barcha ma’lumotlar o‘chirildi.",
       restoreTitle: "{year}-yil narxlarini tiklash",
-      restoreBody: "<p>Asl narxlar ishlatiladi: X {x}, S {s}, M {m}, Y {y}, + {p}.</p><p>Smenalar o‘chirilmaydi; faqat bazalar qayta hisoblanadi.</p>",
+      restoreBody: "<p>Asl narxlar ishlatiladi: C {x}, S {s}, M {m}, Y {y}, + {p}.</p><p>Smenalar o‘chirilmaydi; faqat bazalar qayta hisoblanadi.</p>",
       restored: "Narxlar tiklandi.",
       helpTitle: "Tezkor yordam",
       help1: "1. Oy va kunni tanlang.",
-      help2: "2. JND kiriting (X, X+, XM+…) yoki X, S, M, Y, + tugmalaridan foydalaning.",
+      help2: "2. JND kiriting (C, C+, CM+…) yoki C, S, M, Y, + tugmalaridan foydalaning.",
       help3: "3. Baza darhol hisoblanadi va avtomatik saqlanadi.",
       help4: "Oylik mukofot faqat YAN, MAR, MAY, IYUL, SEN va NOY oylarida chiqadi. Oyiga bir marta qo‘shiladi.",
       help5: "15% jamg‘arma faqat ma’lumot uchun: toq oylar bo‘yicha hisoblanadi va jamidan ayirilmaydi.",
@@ -2543,11 +2543,11 @@ const I18N = {
       confirmWord: "УДАЛИТЬ",
       allDeleted: "Все данные удалены.",
       restoreTitle: "Сбросить цены за {year}",
-      restoreBody: "<p>Будут использованы исходные цены: X {x}, S {s}, M {m}, Y {y}, + {p}.</p><p>Смены не удаляются; базы будут пересчитаны.</p>",
+      restoreBody: "<p>Будут использованы исходные цены: C {x}, S {s}, M {m}, Y {y}, + {p}.</p><p>Смены не удаляются; базы будут пересчитаны.</p>",
       restored: "Цены сброшены.",
       helpTitle: "Быстрая помощь",
       help1: "1. Выберите месяц и нажмите на день.",
-      help2: "2. Введите JND (X, X+, XM+…) или используйте кнопки X, S, M, Y, +.",
+      help2: "2. Введите JND (C, C+, CM+…) или используйте кнопки C, S, M, Y, +.",
       help3: "3. База рассчитается сразу и сохранится автоматически.",
       help4: "Премия за месяц появляется только в янв., мар., мае, июле, сент. и нояб. Прибавляется один раз за месяц.",
       help5: "Накопления 15% — только для информации: считаются по нечётным месяцам и не вычитаются из итога.",
@@ -2775,11 +2775,11 @@ I18N.ky = {
             "confirmWord": "ӨЧҮРҮҮ",
             "allDeleted": "Бардык маалымат жок кылынды.",
             "restoreTitle": "{year} жылынын бааларын кайтаруу",
-            "restoreBody": "<p>Баштапкы баалар колдонулат: X {x}, S {s}, M {m}, Y {y}, + {p}.</p><p>Жумуш күндөрү жок кылынбайт; тек базалар кайра эсептелет.</p>",
+            "restoreBody": "<p>Баштапкы баалар колдонулат: C {x}, S {s}, M {m}, Y {y}, + {p}.</p><p>Жумуш күндөрү жок кылынбайт; тек базалар кайра эсептелет.</p>",
             "restored": "Баалар кайтарылды.",
             "helpTitle": "Тез жардам",
             "help1": "1. Айды тандап, күндү басыңыз.",
-            "help2": "2. JND киргизиңиз (X, X+, XM+…) же X, S, M, Y, + баскычтарын колдонуңуз.",
+            "help2": "2. JND киргизиңиз (C, C+, CM+…) же C, S, M, Y, + баскычтарын колдонуңуз.",
             "help3": "3. База дароо эсептелип, автоматтык түрдө сакталат.",
             "help4": "Айдын сыйлыгы тек ЯНВ, МАР, МАЙ, ИЮЛ, СЕН жана НОЯ айларында чыгат. Ал айына бир жолу кошулат.",
             "help5": "15% сактоо маалымат үчүн гана: ал тек ошол так айларды колдонуп, жалпы суммадан кармалбайт.",
@@ -3006,11 +3006,11 @@ I18N.ro = {
             "confirmWord": "ȘTERGE",
             "allDeleted": "Toate datele au fost șterse.",
             "restoreTitle": "Resetează prețurile pentru {year}",
-            "restoreBody": "<p>Vor fi folosite prețurile originale: X {x}, S {s}, M {m}, Y {y}, + {p}.</p><p>Turele nu sunt șterse; doar bazele sunt recalculate.</p>",
+            "restoreBody": "<p>Vor fi folosite prețurile originale: C {x}, S {s}, M {m}, Y {y}, + {p}.</p><p>Turele nu sunt șterse; doar bazele sunt recalculate.</p>",
             "restored": "Prețuri resetate.",
             "helpTitle": "Ajutor rapid",
             "help1": "1. Alege luna și atinge o zi.",
-            "help2": "2. Introdu JND (X, X+, XM+…) sau folosește butoanele X, S, M, Y, +.",
+            "help2": "2. Introdu JND (C, C+, CM+…) sau folosește butoanele C, S, M, Y, +.",
             "help3": "3. Baza se calculează instant și se salvează automat.",
             "help4": "Premiul lunar apare doar în IAN, MAR, MAI, IUL, SEP și NOI. Se adaugă o dată pe lună.",
             "help5": "Economiile de 15% sunt doar informative: folosesc doar acele luni impare și nu se scad din total.",
@@ -3206,7 +3206,15 @@ function parseAmount(value){
 }
 
 function normalizeJND(value){
-  return String(value ?? "").toUpperCase().replace(/P/g, "+").replace(/\s+/g, "").slice(0, 40);
+  return String(value ?? "").toUpperCase().replace(/C/g, "X").replace(/P/g, "+").replace(/\s+/g, "").slice(0, 40);
+}
+
+function displayLetter(letter){
+  return letter === "X" ? "C" : letter;
+}
+
+function displayJND(value){
+  return normalizeJND(value).replace(/X/g, "C");
 }
 
 function normalizeDescription(value){
@@ -3892,8 +3900,8 @@ function renderQuickLetters(){
     .filter(letter => nonNeg(prices[letter]) > 0)
     .map(letter =>
       `<button type="button" class="letter-btn" data-letter="${letter}"
-        aria-label="${esc(t("addLetterAria", {letter, price: money(prices[letter])}))}">
-        <span>${letter}</span><small>${num(prices[letter])}</small>
+        aria-label="${esc(t("addLetterAria", {letter: displayLetter(letter), price: money(prices[letter])}))}">
+        <span>${displayLetter(letter)}</span><small>${num(prices[letter])}</small>
       </button>`
     ).join("");
 }
@@ -3923,7 +3931,7 @@ function updatePreview(){
   for (const letter of LETTERS){
     if (!counts[letter]) continue;
     const count = counts[letter];
-    parts.push(`<span class="b-chip"><b>${letter}</b>${count > 1 ? `<em>×${count}</em>` : ""}<span>${num(prices[letter] * count)}</span></span>`);
+    parts.push(`<span class="b-chip"><b>${displayLetter(letter)}</b>${count > 1 ? `<em>×${count}</em>` : ""}<span>${num(prices[letter] * count)}</span></span>`);
   }
 
   const breakdown = $("#breakdown");
@@ -3942,7 +3950,8 @@ function updateEntry(){
   $("#selectedDayBadge").textContent = ui.day;
   $("#selectedDayTitle").textContent = t("dayDot", {day: ui.day, month: MONTHS_SHORT[ui.month]});
   const input = $("#jndInput");
-  if (input.value !== raw) input.value = raw;
+  const display = displayJND(raw);
+  if (input.value !== display) input.value = display;
   const description = yearData.months[ui.month].descriptions?.[ui.day - 1] || "";
   const descInput = $("#dayDescription");
   if (descInput && descInput.value !== description) descInput.value = description;
@@ -4015,7 +4024,7 @@ function renderMonthTable(){
     if (raw.trim() !== "") classes.push("has-data");
     return `<tr class="${classes.join(" ")}" data-row="${day}">
       <td class="day-cell"><span class="dnum">${day}</span><span class="wk">${weekday}</span></td>
-      <td class="jnd-cell-wrap"><input class="jnd-cell" data-day="${day}" value="${esc(raw)}"
+      <td class="jnd-cell-wrap"><input class="jnd-cell" data-day="${day}" value="${esc(displayJND(raw))}"
         aria-label="${esc(t("jndAria", {day}))}" inputmode="text" autocapitalize="characters"
         autocomplete="off" autocorrect="off" spellcheck="false" maxlength="40"
         placeholder=" " enterkeyhint="done">${description ? `<span class="day-desc" title="${esc(description)}">${esc(description)}</span>` : ""}</td>
@@ -4110,10 +4119,10 @@ function updatePriceExample(){
   const counts = countsOf("XM++++");
   const parts = LETTERS.filter(letter => counts[letter]).map(letter => {
     const count = counts[letter];
-    return `${letter}${count > 1 ? "×" + count : ""} ${num(prices[letter] * count)}`;
+    return `${displayLetter(letter)}${count > 1 ? "×" + count : ""} ${num(prices[letter] * count)}`;
   });
   $("#priceExample").innerHTML =
-    `<span class="example-code">XM++++</span> = ${parts.join(" + ")} = <b>${money(totalOf("XM++++", prices))}</b>`;
+    `<span class="example-code">${displayJND("XM++++")}</span> = ${parts.join(" + ")} = <b>${money(totalOf("XM++++", prices))}</b>`;
 }
 
 function renderPrices(){
@@ -4123,9 +4132,9 @@ function renderPrices(){
 
   $("#priceRows").innerHTML = LETTERS.map(letter => `
     <div class="price-row">
-      <div class="letter-badge" aria-hidden="true">${letter}</div>
+      <div class="letter-badge" aria-hidden="true">${displayLetter(letter)}</div>
       <label class="price-field">
-        <span class="sr-only">${esc(t("priceAria", {letter}))}</span>
+        <span class="sr-only">${esc(t("priceAria", {letter: displayLetter(letter)}))}</span>
         <span class="money-field">
           <span>${currencySymbol()}</span>
           <input type="number" data-letter="${letter}" inputmode="numeric" min="0" step="100"
@@ -4712,7 +4721,7 @@ function selectDay(day){
   }
   const raw = currentYearData().months[ui.month].days[day - 1] || "";
   const input = $("#jndInput");
-  input.value = raw;
+  input.value = displayJND(raw);
   const description = currentYearData().months[ui.month].descriptions?.[day - 1] || "";
   const descInput = $("#dayDescription");
   if (descInput) descInput.value = description;
@@ -4758,8 +4767,9 @@ async function clearSelectedDay(){
 function appendLetter(letter){
   const input = $("#jndInput");
   if (input.value.length >= 40) return;
-  input.value += letter;
-  currentYearData().months[ui.month].days[ui.day - 1] = input.value;
+  const value = normalizeJND(input.value + letter);
+  input.value = displayJND(value);
+  currentYearData().months[ui.month].days[ui.day - 1] = value;
   updatePreview();
   updateDayButton();
   scheduleSave();
@@ -5448,14 +5458,21 @@ function bindEvents(){
 
   const input = $("#jndInput");
   input.addEventListener("input", () => {
-    currentYearData().months[ui.month].days[ui.day - 1] = input.value;
+    const value = normalizeJND(input.value);
+    const display = displayJND(value);
+    if (input.value !== display){
+      const position = input.selectionStart;
+      input.value = display;
+      try { input.setSelectionRange(position, position); } catch (error){}
+    }
+    currentYearData().months[ui.month].days[ui.day - 1] = value;
     updatePreview();
     updateDayButton();
     scheduleSave();
   });
   input.addEventListener("blur", () => {
     const value = normalizeJND(input.value);
-    input.value = value;
+    input.value = displayJND(value);
     currentYearData().months[ui.month].days[ui.day - 1] = value;
     updatePreview();
     updateDayButton();
@@ -5509,10 +5526,17 @@ function bindEvents(){
     const field = event.target.closest(".jnd-cell");
     if (!field) return;
     const day = Number(field.dataset.day);
-    currentYearData().months[ui.month].days[day - 1] = field.value;
+    const value = normalizeJND(field.value);
+    const display = displayJND(value);
+    if (field.value !== display){
+      const position = field.selectionStart;
+      field.value = display;
+      try { field.setSelectionRange(position, position); } catch (error){}
+    }
+    currentYearData().months[ui.month].days[day - 1] = value;
     const row = field.closest("tr");
-    const base = baseOf(field.value, currentYearData().prices);
-    row.classList.toggle("has-data", field.value.trim() !== "");
+    const base = baseOf(value, currentYearData().prices);
+    row.classList.toggle("has-data", value.trim() !== "");
     row.querySelector(".base-cell").innerHTML = base ? num(base) : '<span class="zero">—</span>';
     updateMonthTotals();
     scheduleSave();
@@ -5522,7 +5546,7 @@ function bindEvents(){
     if (!field) return;
     const day = Number(field.dataset.day);
     const value = normalizeJND(field.value);
-    field.value = value;
+    field.value = displayJND(value);
     currentYearData().months[ui.month].days[day - 1] = value;
     const row = field.closest("tr");
     const base = baseOf(value, currentYearData().prices);
