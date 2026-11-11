@@ -1662,7 +1662,7 @@
 /* ============================================================
    Datos iniciales: año 2026 vacío
    ============================================================ */
-const SEED_2026 = {prices: {X: 7000, S: 5000, M: 3000, Y: 14000, "+": 1500}, months: Array.from({length: 12}, () => ({days: Array(31).fill(""), plus: 0}))};
+const SEED_2026 = {prices: {X: 7000, S: 5000, M: 3000, Y: 0, "+": 1500}, months: Array.from({length: 12}, () => ({days: Array(31).fill(""), plus: 0}))};
 
 /* ============================================================
    Constantes y estado
@@ -3139,7 +3139,7 @@ function applyStaticTranslations(){
 }
 
 const LETTERS = ["X","S","M","Y","+","G","Z","E","F","T"];
-const DEFAULT_PRICES = {X:7000, S:5000, M:3000, Y:14000, "+":1500, G:0, Z:0, E:0, F:0, T:0};
+const DEFAULT_PRICES = {X:7000, S:5000, M:3000, Y:0, "+":1500, G:0, Z:0, E:0, F:0, T:0};
 const DEFAULT_PREMIUM_PRICES = {X: 1000, S: 800, M: 600};
 const DEFAULT_OFFICIAL_SALARY = 60000;
 const STORAGE_KEY = "mi-salario-jnd-uz-v1";
@@ -3320,7 +3320,17 @@ function normalizeYear(raw){
       year.months[m].plus = m % 2 === 0 ? nonNeg(source.plus) : 0;
     }
   }
+  normalizeLegacyYPrice(year);
   return year;
+}
+
+function normalizeLegacyYPrice(yearData){
+  if (!yearData || !yearData.prices) return;
+  if (nonNeg(yearData.prices.Y) !== 14000) return;
+  const hasY = yearData.months.some(month =>
+    month.days.some(day => normalizeJND(day).includes("Y"))
+  );
+  if (!hasY) yearData.prices.Y = 0;
 }
 
 function normalizeDebts(raw){
@@ -5139,6 +5149,7 @@ function applyImport(parsed){
       yearData.months[month].descriptions = (record.months[month].descriptions || Array(31).fill("")).slice();
       yearData.months[month].plus = month % 2 === 0 ? record.months[month].plus : 0;
     }
+    normalizeLegacyYPrice(yearData);
     state.years[String(yearNumber)] = yearData;
   }
 
