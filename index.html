@@ -291,7 +291,7 @@
     scroll-snap-type:x proximity;
     touch-action:pan-x;
   }
-  #view-hoy{touch-action:pan-y}
+  #view-hoy{touch-action:auto}
   .month-strip::-webkit-scrollbar{display:none}
   .month-chip{
     position:relative;flex:0 0 auto;min-width:56px;
@@ -3880,6 +3880,9 @@ function centerMonthStrip(selector){
   if (!strip || !strip.clientWidth) return;
   const active = strip.querySelector(".month-chip.active");
   if (!active) return;
+  try {
+    active.scrollIntoView({ behavior: "auto", block: "nearest", inline: "center" });
+  } catch (error){}
   const stripRect = strip.getBoundingClientRect();
   const activeRect = active.getBoundingClientRect();
   const left = strip.scrollLeft + (activeRect.left - stripRect.left) - (strip.clientWidth - activeRect.width) / 2;
@@ -3887,9 +3890,14 @@ function centerMonthStrip(selector){
 }
 
 function centerMonthStrips(){
-  requestAnimationFrame(() => {
+  const run = () => {
     centerMonthStrip("#quickMonths");
     centerMonthStrip("#monthMonths");
+  };
+  requestAnimationFrame(() => {
+    run();
+    setTimeout(run, 180);
+    setTimeout(run, 600);
   });
 }
 
@@ -4742,26 +4750,30 @@ function setMonth(month){
 }
 
 function setupHoySwipe(){
-  const view = $("#view-hoy");
-  if (!view) return;
+  if (!$("#view-hoy")) return;
   let startX = 0;
   let startY = 0;
   let startedAt = 0;
   let tracking = false;
   let suppressClickUntil = 0;
 
-  view.addEventListener("touchstart", event => {
+  const canStart = target => {
+    if (ui.view !== "hoy") return false;
+    if (!target || !target.closest || !target.closest("#view-hoy")) return false;
+    return !target.closest("input, textarea, select, .month-strip");
+  };
+
+  document.addEventListener("touchstart", event => {
     if (event.touches.length !== 1){ tracking = false; return; }
-    const target = event.target;
-    if (target.closest("input, textarea, select, .month-strip")){ tracking = false; return; }
+    if (!canStart(event.target)){ tracking = false; return; }
     const touch = event.touches[0];
     startX = touch.clientX;
     startY = touch.clientY;
     startedAt = Date.now();
     tracking = true;
-  }, { passive: true });
+  }, { passive: true, capture: true });
 
-  view.addEventListener("touchmove", event => {
+  document.addEventListener("touchmove", event => {
     if (!tracking || event.touches.length !== 1) return;
     const touch = event.touches[0];
     const dx = touch.clientX - startX;
@@ -4770,9 +4782,9 @@ function setupHoySwipe(){
       suppressClickUntil = Date.now() + 450;
       if (event.cancelable) event.preventDefault();
     }
-  }, { passive: false });
+  }, { passive: false, capture: true });
 
-  view.addEventListener("touchend", event => {
+  document.addEventListener("touchend", event => {
     if (!tracking) return;
     tracking = false;
     const touch = event.changedTouches[0];
@@ -4784,11 +4796,11 @@ function setupHoySwipe(){
       suppressClickUntil = Date.now() + 450;
       setMonth(ui.month + (dx < 0 ? 1 : -1));
     }
-  });
+  }, { capture: true });
 
-  view.addEventListener("touchcancel", () => { tracking = false; });
+  document.addEventListener("touchcancel", () => { tracking = false; }, { capture: true });
 
-  view.addEventListener("click", event => {
+  document.addEventListener("click", event => {
     if (Date.now() < suppressClickUntil){
       event.preventDefault();
       event.stopPropagation();
@@ -5532,6 +5544,7 @@ function bindEvents(){
     });
   });
   window.addEventListener("resize", centerMonthStrips);
+  window.addEventListener("load", () => setTimeout(centerMonthStrips, 50));
   setupHoySwipe();
 
   $("#dayGrid").addEventListener("click", event => {
