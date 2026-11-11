@@ -364,6 +364,24 @@
   .jnd-input::placeholder{color:#c3bcae;font-weight:700;letter-spacing:.10em;font-size:15px;text-transform:none}
   .jnd-input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft)}
   .quick-letters{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:9px}
+  .desc-field{margin-top:12px}
+  .desc-label{
+    display:block;margin-bottom:5px;
+    font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);
+  }
+  .desc-input{
+    width:100%;height:46px;border:1px solid var(--line);border-radius:12px;
+    background:#fff;padding:0 12px;font:inherit;font-size:14px;color:var(--ink);
+  }
+  .desc-input::placeholder{color:#b9b1a3;font-weight:500}
+  .desc-input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+  .jnd-cell-wrap{min-width:170px}
+  .day-desc{
+    display:block;margin-top:3px;max-width:250px;
+    font-size:10px;line-height:1.35;color:var(--muted);
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  }
+  @media (max-width:520px){.desc-input{font-size:16px}}
   .letter-btn{
     min-height:56px;border-radius:14px;border:1px solid var(--line);
     background:#fff;color:var(--brand);
@@ -1037,7 +1055,8 @@
     background-color:rgba(255,255,255,.11);color:#fff;
   }
   html[data-theme="dark"] .jnd-input::placeholder,
-  html[data-theme="dark"] .jnd-cell::placeholder{color:#8b968e}
+  html[data-theme="dark"] .jnd-cell::placeholder,
+  html[data-theme="dark"] .desc-input::placeholder{color:#8b968e}
   html[data-theme="dark"] .jnd-input{color:var(--brand)}
   html[data-theme="dark"] .jnd-cell:focus{background:var(--card)}
   html[data-theme="dark"] .day-btn.filled{background:var(--brand-soft);border-color:#3d6a60;color:var(--brand)}
@@ -1176,6 +1195,14 @@
                autocorrect="off" spellcheck="false" maxlength="40" enterkeyhint="done">
 
         <div class="quick-letters" id="quickLetters" aria-label="Agregar letra" data-i18n-aria="addLetter"></div>
+
+        <div class="desc-field">
+          <label class="desc-label" for="dayDescription" data-i18n="dayDescription">Programa / Jefe / Dirección</label>
+          <input class="desc-input" id="dayDescription" type="text" maxlength="300"
+                 data-i18n-ph="dayDescriptionPlaceholder"
+                 placeholder="Ej.: Escenario principal · Jefe: ... · Dirección: ..."
+                 autocomplete="off" autocapitalize="sentences" enterkeyhint="next">
+        </div>
 
         <div class="base-preview">
           <span data-i18n="dayBase">Base del día</span>
@@ -1667,6 +1694,8 @@ const I18N = {
       shift: "Shift",
       delete: "Delete",
       jndDayLabel: "JND code for the day",
+      dayDescription: "Program / Crew chief / Address",
+      dayDescriptionPlaceholder: "E.g.: Main stage · Chief: ... · Address: ...",
       dayBase: "Day base",
       autosave: "Saves automatically",
       save: "Save",
@@ -1891,6 +1920,8 @@ const I18N = {
       shift: "Jornada",
       delete: "Borrar",
       jndDayLabel: "Código JND del día",
+      dayDescription: "Programa / Jefe / Dirección",
+      dayDescriptionPlaceholder: "Ej.: Escenario principal · Jefe: ... · Dirección: ...",
       dayBase: "Base del día",
       autosave: "Se guarda solo",
       save: "Guardar",
@@ -2114,6 +2145,8 @@ const I18N = {
       shift: "Smena",
       delete: "O‘chirish",
       jndDayLabel: "Kun uchun JND kodi",
+      dayDescription: "Dastur / Brigada boshlig‘i / Manzil",
+      dayDescriptionPlaceholder: "Masalan: Asosiy sahna · Boshliq: ... · Manzil: ...",
       dayBase: "Kunlik baza",
       autosave: "Avtomatik saqlanadi",
       save: "Saqlash",
@@ -2338,6 +2371,8 @@ const I18N = {
       shift: "Смена",
       delete: "Удалить",
       jndDayLabel: "Код JND за день",
+      dayDescription: "Программа / Бригадир / Адрес",
+      dayDescriptionPlaceholder: "Напр.: Главная сцена · Бригадир: ... · Адрес: ...",
       dayBase: "База за день",
       autosave: "Сохраняется автоматически",
       save: "Сохранить",
@@ -2563,6 +2598,8 @@ I18N.ky = {
             "shift": "Жумуш күнү",
             "delete": "Жок кылуу",
             "jndDayLabel": "Күндүн JND коду",
+      "dayDescription": "Программа / Бригада башчысы / Дарек",
+      "dayDescriptionPlaceholder": "Мисалы: Негизги сахна · Башчы: ... · Дарек: ...",
             "dayBase": "Күндүк база",
             "autosave": "Автоматтык түрдө сакталат",
             "save": "Сактоо",
@@ -2787,6 +2824,8 @@ I18N.ro = {
             "shift": "Tură",
             "delete": "Șterge",
             "jndDayLabel": "Codul JND pentru zi",
+      "dayDescription": "Program / Șef de brigadă / Adresă",
+      "dayDescriptionPlaceholder": "Ex.: Scena principală · Șef: ... · Adresă: ...",
             "dayBase": "Baza zilei",
             "autosave": "Se salvează automat",
             "save": "Salvează",
@@ -3101,6 +3140,10 @@ function normalizeJND(value){
   return String(value ?? "").toUpperCase().replace(/P/g, "+").replace(/\s+/g, "").slice(0, 40);
 }
 
+function normalizeDescription(value){
+  return String(value ?? "").replace(/[\r\n]+/g, " ").replace(/\s+/g, " ").trim().slice(0, 300);
+}
+
 function clonePrices(prices){
   const out = {};
   for (const letter of LETTERS){
@@ -3139,7 +3182,7 @@ function todayISO(){
    Modelo de datos
    ============================================================ */
 function makeEmptyMonths(){
-  return Array.from({length: 12}, () => ({days: Array(31).fill(""), plus: 0}));
+  return Array.from({length: 12}, () => ({days: Array(31).fill(""), descriptions: Array(31).fill(""), plus: 0}));
 }
 
 function makeYear(prices = DEFAULT_PRICES){
@@ -3150,6 +3193,9 @@ function seedYear(){
   const months = makeEmptyMonths();
   SEED_2026.months.forEach((source, index) => {
     months[index].days = source.days.map(normalizeJND);
+    if (Array.isArray(source.descriptions)){
+      months[index].descriptions = Array.from({length: 31}, (_, day) => normalizeDescription(source.descriptions[day] ?? ""));
+    }
     months[index].plus = index % 2 === 0 ? nonNeg(source.plus) : 0;
   });
   return {prices: clonePrices(SEED_2026.prices), months};
@@ -3168,6 +3214,11 @@ function normalizeYear(raw){
       if (Array.isArray(source.days)){
         for (let d = 0; d < 31; d++){
           year.months[m].days[d] = normalizeJND(source.days[d] ?? "");
+        }
+      }
+      if (Array.isArray(source.descriptions)){
+        for (let d = 0; d < 31; d++){
+          year.months[m].descriptions[d] = normalizeDescription(source.descriptions[d] ?? "");
         }
       }
       year.months[m].plus = m % 2 === 0 ? nonNeg(source.plus) : 0;
@@ -3780,6 +3831,9 @@ function updateEntry(){
   $("#selectedDayTitle").textContent = t("dayDot", {day: ui.day, month: MONTHS_SHORT[ui.month]});
   const input = $("#jndInput");
   if (input.value !== raw) input.value = raw;
+  const description = yearData.months[ui.month].descriptions?.[ui.day - 1] || "";
+  const descInput = $("#dayDescription");
+  if (descInput && descInput.value !== description) descInput.value = description;
   $("#entryCard").classList.toggle("has-code", raw.trim() !== "");
   updatePreview();
   setSaveState(t("autosave"));
@@ -3838,6 +3892,7 @@ function renderMonthTable(){
   $("#monthBody").innerHTML = Array.from({length: count}, (_, index) => {
     const day = index + 1;
     const raw = yearData.months[ui.month].days[index] || "";
+    const description = normalizeDescription(yearData.months[ui.month].descriptions?.[index] || "");
     const base = baseOf(raw, yearData.prices);
     const isToday = state.activeYear === CURRENT_YEAR && ui.month === CURRENT_MONTH && day === CURRENT_DAY;
     const weekdayIndex = new Date(state.activeYear, ui.month, day).getDay();
@@ -3848,10 +3903,10 @@ function renderMonthTable(){
     if (raw.trim() !== "") classes.push("has-data");
     return `<tr class="${classes.join(" ")}" data-row="${day}">
       <td class="day-cell"><span class="dnum">${day}</span><span class="wk">${weekday}</span></td>
-      <td><input class="jnd-cell" data-day="${day}" value="${esc(raw)}"
+      <td class="jnd-cell-wrap"><input class="jnd-cell" data-day="${day}" value="${esc(raw)}"
         aria-label="${esc(t("jndAria", {day}))}" inputmode="text" autocapitalize="characters"
         autocomplete="off" autocorrect="off" spellcheck="false" maxlength="40"
-        placeholder=" " enterkeyhint="done"></td>
+        placeholder=" " enterkeyhint="done">${description ? `<span class="day-desc" title="${esc(description)}">${esc(description)}</span>` : ""}</td>
       <td class="base-cell">${base ? num(base) : '<span class="zero">—</span>'}</td>
     </tr>`;
   }).join("");
@@ -4532,6 +4587,9 @@ function selectDay(day){
   const raw = currentYearData().months[ui.month].days[day - 1] || "";
   const input = $("#jndInput");
   input.value = raw;
+  const description = currentYearData().months[ui.month].descriptions?.[day - 1] || "";
+  const descInput = $("#dayDescription");
+  if (descInput) descInput.value = description;
   $("#selectedDayBadge").textContent = day;
   $("#selectedDayTitle").textContent = `Día ${day} · ${MONTHS_SHORT[ui.month]}`;
   $("#entryCard").classList.toggle("has-code", raw.trim() !== "");
@@ -4543,7 +4601,8 @@ function selectDay(day){
 
 async function clearSelectedDay(){
   const raw = currentYearData().months[ui.month].days[ui.day - 1] || "";
-  if (raw.trim() === ""){
+  const description = currentYearData().months[ui.month].descriptions?.[ui.day - 1] || "";
+  if (raw.trim() === "" && description.trim() === ""){
     toast(t("emptyDay"));
     return;
   }
@@ -4559,9 +4618,12 @@ async function clearSelectedDay(){
   );
   if (!ok) return;
   currentYearData().months[ui.month].days[ui.day - 1] = "";
+  currentYearData().months[ui.month].descriptions[ui.day - 1] = "";
   $("#jndInput").value = "";
+  $("#dayDescription").value = "";
   updatePreview();
   updateDayButton();
+  renderMonthTable();
   saveNow();
   flashSaved();
   toast(t("dayDeleted"));
@@ -4610,8 +4672,9 @@ function buildCSV(){
       rows.push([yearNumber, month + 1, 0, "", plus, prices.X, prices.S, prices.M, prices.Y, prices["+"], stats.base, "", "", "", "", "", "", "", prices.G, prices.Z, prices.E, prices.F, prices.T]);
       for (let day = 1; day <= 31; day++){
         const jnd = normalizeJND(yearData.months[month].days[day - 1]);
-        if (!jnd) continue;
-        rows.push([yearNumber, month + 1, day, jnd, plus, prices.X, prices.S, prices.M, prices.Y, prices["+"], baseOf(jnd, prices), "", "", "", "", "", "", "", prices.G, prices.Z, prices.E, prices.F, prices.T]);
+        const description = normalizeDescription(yearData.months[month].descriptions?.[day - 1]);
+        if (!jnd && !description) continue;
+        rows.push([yearNumber, month + 1, day, jnd, plus, prices.X, prices.S, prices.M, prices.Y, prices["+"], baseOf(jnd, prices), "", description, "", "", "", "", "", prices.G, prices.Z, prices.E, prices.F, prices.T]);
       }
     }
   }
@@ -4881,6 +4944,10 @@ function parseImport(text){
     }
 
     const jnd = normalizeJND(row[iJnd]);
+    const description = iNota >= 0 ? normalizeDescription(row[iNota]) : "";
+    if (description){
+      record.months[monthIndex].descriptions[day - 1] = description;
+    }
     if (jnd){
       record.months[monthIndex].days[day - 1] = jnd;
       dayCount++;
@@ -4902,6 +4969,7 @@ function applyImport(parsed){
     const yearData = makeYear(record.prices || fallback);
     for (let month = 0; month < 12; month++){
       yearData.months[month].days = record.months[month].days.slice();
+      yearData.months[month].descriptions = (record.months[month].descriptions || Array(31).fill("")).slice();
       yearData.months[month].plus = month % 2 === 0 ? record.months[month].plus : 0;
     }
     state.years[String(yearNumber)] = yearData;
@@ -5240,6 +5308,26 @@ function bindEvents(){
     if (event.key === "Enter"){
       event.preventDefault();
       input.blur();
+    }
+  });
+
+  const descriptionInput = $("#dayDescription");
+  descriptionInput.addEventListener("input", () => {
+    currentYearData().months[ui.month].descriptions[ui.day - 1] = String(descriptionInput.value).slice(0, 300);
+    scheduleSave();
+  });
+  descriptionInput.addEventListener("blur", () => {
+    const value = normalizeDescription(descriptionInput.value);
+    descriptionInput.value = value;
+    currentYearData().months[ui.month].descriptions[ui.day - 1] = value;
+    saveNow();
+    flashSaved();
+    renderMonthTable();
+  });
+  descriptionInput.addEventListener("keydown", event => {
+    if (event.key === "Enter"){
+      event.preventDefault();
+      descriptionInput.blur();
     }
   });
 
